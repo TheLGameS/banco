@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+<h:head>
+	
+	<meta name="viewport"              content="width=device-width,initial-scale=1" />
+	<meta http-equiv="Content-Type"    content="text/html; charset=ISO-8859-1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+	
+    	
+	
+	<title>
+		<ui:insert name="titulo">Smart Web</ui:insert>
+	</title> <!-- (2) -->
+	
+	<link rel="shortcut icon" href="#{resource['imagens/favicon.gif']}" type="image/x-icon" />
+	
+	<h:outputStylesheet library="css" name="estiloDesktop.css"/>
+	<style type="text/css"><!--
+		#logotipo {
+			text-align: right; 
+			float: right;
+		} -->
+    </style>  
+
+	<script type="text/javascript">
+	        PrimeFaces.locales['pt'] = {
+		    closeText: 'Fechar',
+		    prevText: 'Anterior',
+		    nextText: 'Próximo',
+		    currentText: 'Começo',
+		    monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+		    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun', 'Jul','Ago','Set','Out','Nov','Dez'],
+		    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+		    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'],
+		    dayNamesMin: ['D','S','T','Q','Q','S','S'],
+		    weekHeader: 'Semana',
+		    firstDay: 0,
+		    isRTL: false,
+		    showMonthAfterYear: false,
+		    yearSuffix: '',
+		    timeOnlyTitle: 'Só Horas',
+		    timeText: 'Tempo',
+		    hourText: 'Hora',
+		    minuteText: 'Minuto',
+		    secondText: 'Segundo',
+		    ampm: false,
+		    month: 'Mês',
+		    week: 'Semana',
+		    day: 'Dia',
+		    allDayText : 'Todo o Dia'
+			};
+	</script>  
+
+
+		<script type="text/javascript"> 
+				function somenteNumero(e){
+			    var tecla=(window.event)?event.keyCode:e.which;   
+			    if(tecla==48 || tecla==49 || tecla==50 || tecla==51 || tecla==52 || tecla==53  || tecla==54 || tecla==55 || tecla==56 || tecla==57  ) 
+				    return true;
+				else{
+				   	if (tecla==8 || tecla==0) 
+					   		return true;
+					else  
+							return false;
+					}
+				}
+		</script>
+
+<!-- 	<script type="text/javascript"> function redirecionar(){window.location="/SmartWeb/restrito/principal.jsf"; } </script> -->
+
+
+</h:head>
+<h:body >
+<div id="container"  > 
+
+
+
+		<div id="barra_menu"  >
+	    	<ui:insert name="barra_menu">
+	    		<ui:include src="/restrito/frm_mod_desktop.xhtml"/>
+	   		</ui:insert>  
+		</div>
+	 
+		<div style="margin-top: 1px;" id="corpo">
+			<ui:insert name="corpo" />
+		</div>
+	
+		<!-- <ui:insert name="rodape" >
+			<ui:include src="/publico/rodape.xhtml"/>
+		</ui:insert>   -->
+</div>	 
+</h:body>
+</html>

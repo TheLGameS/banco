@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">    
+     
+    <h:head>
+        <title>Busca de Municípios</title>
+                <style type="text/css">
+            .ui-widget {
+                font-size: .75em;
+            }
+        </style>
+    </h:head>
+     
+    <h:body>
+        <h:form id="form" >	
+        
+        
+         	<p:fieldset legend="Filtro" toggleable="true" collapsed="false" toggleSpeed="0" >
+		        <h:panelGrid columns="2" >
+				<p:outputLabel for="estado" value="Estado:" />
+				    <p:selectOneMenu  id="estado" value="#{municipioBean.siglaEstado}" style="width:60px" effect="drop"  valueChangeListener="#{municipioBean.setEstadoAtivo}"      >
+					    <f:selectItems value="#{estadoBean.lista}"  
+					    		var="estado"
+								itemValue="#{estado.estSig}"
+								itemLabel="#{estado.estSig}"
+								
+					    />
+					    <f:ajax   render=":form:tabela" execute=":form:tabela"  event="change" />
+				    </p:selectOneMenu>		           
+		       	</h:panelGrid>
+    		</p:fieldset>
+        
+       
+        		
+        
+        
+        
+        
+        	<br />
+        
+        
+			<p:dataTable id="tabela" var="municipio" value="#{municipioBean.listaPorEstado}" paginator="true"  rows="10" paginatorPosition="bottom" emptyMessage="Não existe dados para a Consulta." paginatorAlwaysVisible="false">
+                <p:column headerText="Código" width="2%"  >
+				<h:outputText value="#{municipio.munCod}" />
+			</p:column>
+	
+			<p:column headerText="Nome" width="8%" filterBy="#{municipio.munNom}" filterMatchMode="contains"  >
+				<h:outputText value="#{municipio.munNom}" />
+			</p:column>
+			
+			<p:column headerText="Estado" width="2%">
+				<h:outputText value="#{municipio.estado.estSig}" />
+			</p:column>
+					
+			<p:column headerText="Ações" width="1%">										
+				<p:commandButton icon="ui-icon-circle-check" actionListener="#{municipioBean.municipioSelecionadoDialog(municipio)}"   >							
+				</p:commandButton>	
+			</p:column>
+               
+            </p:dataTable>	
+		 
+				
+      </h:form>
+    </h:body>
+     
+</html>

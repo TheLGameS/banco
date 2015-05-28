@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"	
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+	<h:form id="listagem" >
+		<h:messages />
+		
+		<h:panelGrid columns="1" cellpadding="1">
+			<p:commandButton value="Inclui" action="#{municipioBean.novo}"  update=":tab" />
+		</h:panelGrid>
+
+		<p:dataTable value="#{municipioBean.lista}" resizableColumns="true"
+			         draggableColumns="true" id="municipio" var="municipio" rows="10" paginator="true"
+					 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					 rowsPerPageTemplate="10,20,50"  paginatorPosition="bottom"  reflow="true" >
+
+			<p:column width="15" headerText="Editar" >
+				<p:commandLink action="#{municipioBean.editar}" update=":tab">
+					<h:graphicImage library="imagens" name="editar16.png"/>
+					<f:setPropertyActionListener target="#{municipioBean.municipio}" value="#{municipio}" />
+				</p:commandLink>
+			</p:column>
+			
+			<p:column width="15" headerText="Excluir">
+				<p:commandLink action="#{municipioBean.excluir}" update=":tab" onclick="if (!confirm('Confirma a exclusão do município #{municipio.munNom}?')) return false;">
+					<h:graphicImage library="imagens" name="excluir16.png"/>
+					<f:setPropertyActionListener target="#{municipioBean.municipio}" value="#{municipio}" />
+				</p:commandLink>
+			</p:column>
+			
+			
+			<p:column headerText="Código" sortBy="#{municipio.munCod}" width="30"   >
+				<h:outputText value="#{municipio.munCod}" />
+			</p:column>
+
+			<p:column headerText="Descrição" filterBy="#{municipio.munNom}" filterMatchMode="contains" sortBy="#{municipio.munNom}" width="270">
+				<h:outputText value="#{municipio.munNom}" />
+			</p:column>
+
+			<p:column headerText="Estado" sortBy="#{municipio.estado.estSig}" width="35">
+				<h:outputText value="#{municipio.estado.estSig}" />
+			</p:column>
+		</p:dataTable>		
+	</h:form>
+</ui:composition>
+</html>

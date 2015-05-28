@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"	>
+	
+<ui:composition >
+	<sec:ifAnyGranted roles="ROLE_USUARIO">
+		<h:form id="menu"  >
+			<table width="100%"  >
+			<tr>
+				<td>
+					<p:menubar  >
+						<p:submenu label="Geral" >						
+							<p:menuitem value="Colaboradores" url="frm_cad_colaborador.jsf" />
+							
+							<p:submenu label="Tabelas Auxiliares" >						
+								<p:menuitem value="Municípios" url="municipio.jsf" />
+							</p:submenu>
+							
+							<p:menuitem value="Consulta CEP" url="frm_web_serv_cep.jsf"/>	
+							
+							<p:menuitem value="Sair"  onclick="document.location='#{request.contextPath}/j_spring_security_logout'" title="Sair" />
+
+							</p:submenu>
+						
+						<p:submenu label="Cadastros">						
+							<p:menuitem value="Clientes" url="/restrito/frm_cad_cliente.jsf" />	
+						</p:submenu>
+						
+						<p:submenu label="Movimentos">						
+							<p:menuitem value="Pedidos de Venda" url="/restrito/frm_mov_pedido_venda.jsf" />
+						</p:submenu>
+						
+						<p:submenu label="Consultas" >		
+							<p:submenu label="Faturamento" >
+								<p:menuitem value="Vendas" url="frm_con_fat_vendas.jsf" />	
+							</p:submenu>							
+						</p:submenu>
+						
+						<p:menuitem value="Studiio" url="frm_teste.jsf" />
+						
+					</p:menubar>
+				</td>	
+			</tr>
+			</table>		
+		</h:form>
+	</sec:ifAnyGranted>
+</ui:composition>
+</html>
