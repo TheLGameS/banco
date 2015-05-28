@@ -1,21 +1,10 @@
 package br.ufsc.creche.action;
 
-import java.util.List;
-
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.event.ValueChangeEvent;
 
-import br.ufsc.creche.model.Estado;
-import br.ufsc.creche.model.Filial;
-import br.ufsc.creche.model.FilialId;
-import br.ufsc.creche.model.Municipio;
 import br.ufsc.creche.model.Usuario;
-import br.ufsc.creche.negocio.FilialRN;
-import br.ufsc.creche.negocio.PropSistemaRN;
 import br.ufsc.creche.negocio.UsuarioRN;
-import br.ufsc.creche.util.Decoder;
 import br.ufsc.creche.util.FacesUtil;
 
 

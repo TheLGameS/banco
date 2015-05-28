@@ -5,7 +5,6 @@ import javax.faces.bean.SessionScoped;
 
 import br.ufsc.creche.parameter.ReceitaFederalPar;
 import br.ufsc.creche.util.FacesUtil;
-import br.ufsc.creche.util.ReceitaFederal;
 
 
 @ManagedBean
@@ -20,8 +19,8 @@ public class ReceitaFederalBean extends ActionBean {
 
 	public  String obtemImagem(){
 		String cpt="";
-		ReceitaFederal.solicitacao();
-		cpt = ReceitaFederal.gerarCaptcha();
+		/*ReceitaFederal.solicitacao();
+		cpt = ReceitaFederal.gerarCaptcha();*/
 
 		rec.setCaptchaBase64(cpt);
 		rec.setCnpj(documentoSemMascara);
@@ -39,7 +38,7 @@ public class ReceitaFederalBean extends ActionBean {
 
 	public void valida(){
 		if (rec.getCnpj().trim().length() ==14) {
-			rec = ReceitaFederal.valida(rec.getCnpj(), rec.getCaptcha());
+		//	rec = ReceitaFederal.valida(rec.getCnpj(), rec.getCaptcha());
 			if(rec.getMensagemErroConsulta()==null){
 				parametros=false;
 				resultado=true;

@@ -5,7 +5,6 @@ import javax.faces.bean.SessionScoped;
 
 import br.ufsc.creche.parameter.SintegraPar;
 import br.ufsc.creche.util.FacesUtil;
-import br.ufsc.creche.util.Sintegra;
 
 
 @ManagedBean
@@ -21,12 +20,12 @@ public class SintegraBean extends ActionBean {
 
 	public  String obtemImagem(){
 		String cpt="";
-		Sintegra.solicitacao(estado);
+	/*	Sintegra.solicitacao(estado);
 		cpt = Sintegra.gerarCaptcha();
 
 		if(estado.equals("RS")){
 			Sintegra.rsSolicitacaoSintegra2(sintegra.getCnpj());
-		}
+		}*/
 
 		sintegra.setCaptchaBase64(cpt);
 		sintegra.setCnpj(documentoSemMascara);
@@ -54,7 +53,7 @@ public class SintegraBean extends ActionBean {
 
 	public void valida(){
 		if (sintegra.getCnpj().trim().length() ==14) {
-			sintegra = Sintegra.valida(sintegra.getCnpj(), sintegra.getCaptcha(), estado);
+			//sintegra = Sintegra.valida(sintegra.getCnpj(), sintegra.getCaptcha(), estado);
 			if(sintegra.getMensagemErroConsulta()==null || sintegra.getMensagemErroConsulta().trim().length()<5){
 				parametros=false;
 				resultado=true;
