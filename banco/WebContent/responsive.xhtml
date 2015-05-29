@@ -9,40 +9,19 @@
 <ui:composition template="/templates/main.xhtml">
                 
     <ui:define name="content">                        
-        <h1 class="page-header "> <i class="fa fa-bars"></i> Dashboard</h1>
-        
+		<h1 class="page-header "> <i class="fa fa-bars"></i> Dashboard</h1>
 	
-	<p:dialog appendToBody="true" closable="true" draggable="false"
-                  header="Colaborador" maximizable="true" minimizable="false"
+		<p:dialog appendToBody="true" closable="true" draggable="false"
+                  header="Colaborador" maximizable="false" minimizable="false"
                   resizable="false" showEffect="slide" visible="true"
-                  position="center"     width="85%"    
-                  > 
+                  position="center"     width="60%" height="400" > 
 
-		<h:form id="cadColaborador" style="width:85%; display:block" >
-			<p:panel id="pnlpar" style="margin-bottom:20px"
-				header="Cadastro de Colaboradores">
+		<h:form id="cadColaborador" style="width:60%; display:block"   >
 				<p:messages id="messageGe"   autoUpdate="true"  closable="true" showIcon="false" />
-
-			 
-							
-				
-		</p:panel>
-	
 		</h:form>
 
-		
-	 
-		
-		 
-		
 		</p:dialog>
-		
-	
-	       
 
-
-
-        
     </ui:define>
 </ui:composition>     
 </html>
