@@ -20,7 +20,7 @@
 
 	 <authentication-manager>
 		<authentication-provider>
-			   <jdbc-user-service data-source-ref="financeiroDataSource"
+			   <jdbc-user-service data-source-ref="financeiroDataSource"/>
 				<!-- authorities-by-username-query="SELECT CD_USUARIO, PERMISSAO
 											   FROM usuario
 											   WHERE CD_USUARIO = ?"

@@ -23,7 +23,7 @@
         <h:form id="frmResultado">
             <h:panelGrid id="pnResultado" columns="2">
             
-             <h:outputText value="CEP: " style="font-weight:bold; padding-right: 5px; float: right;" />
+             	<h:outputText value="CEP: " style="font-weight:bold; padding-right: 5px; float: right;" />
                 <p:inputMask mask="99999-999" value="#{cepServiceBean.cep}"  >
                 	<p:ajax  event="change" listener="#{cepServiceBean.encontraCEP}"   update="frmResultado, me" onstart="PF('statusDialog').show()" 	onsuccess="PF('statusDialog').hide()" />
 				</p:inputMask> 

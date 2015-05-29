@@ -46,67 +46,30 @@
     </p:dataTable>
 	 -->
 	
-
-	
-
-	    	
-					<p:dataTable id="idDatable" value="#{relatorioTesteBean.list}" var="c"  >
+					<p:dataTable id="idDatable" value="#{usuarioBean.lista}" var="c"  >
 						<p:column  style="text-align: left;">
 							<f:facet name="header">
-								<h:outputText value="Nome" />
+								<h:outputText value="Login" />
 							</f:facet>
-								<h:outputText value="#{c.nome}"  />
+								<h:outputText value="#{c.login}"  />
 						</p:column>
 					
 						<p:column  style="text-align: left;">
 							<f:facet name="header">
-								<h:outputText value="Email" />
+								<h:outputText value="Status" />
 							</f:facet>
-								<h:outputText value="#{c.email}" />
+								<h:outputText value="#{c.status}" />
 						</p:column>
 						
 						<p:column  style="text-align: right;">
 							<f:facet name="header">
-								<h:outputText value="Telefone" />
+								<h:outputText value="Codigo" />
 							</f:facet>
-								<h:outputText value="#{c.telefone}" />
+								<h:outputText value="#{c.cdUsuario}" />
 						</p:column>
 						
-						
 					</p:dataTable>
-					
-					<br />
-					
-					<p:toolbar>
-					<f:facet name="left"  >
-						<h:panelGrid columns="7" >
-							<p:commandButton  ajax="false" value="Report"  action="#{relatorioTesteBean.montaRelatorio()}"   >
-								<f:setPropertyActionListener value="0" target="#{relatorioTesteBean.tipoRelatorio}" />
-							</p:commandButton>
-							
-							<p:commandButton  ajax="false" value="pdf"  action="#{relatorioTesteBean.montaRelatorio()}"   >
-								<f:setPropertyActionListener value="1" target="#{relatorioTesteBean.tipoRelatorio}" />
-							</p:commandButton>
-							
-							<p:commandButton  ajax="false" value="excel"  action="#{relatorioTesteBean.montaRelatorio()}"   >
-								<f:setPropertyActionListener value="2" target="#{relatorioTesteBean.tipoRelatorio}" />
-							</p:commandButton>
-							
-							<p:commandButton  ajax="false" value="word"  action="#{relatorioTesteBean.montaRelatorio()}"   >
-								<f:setPropertyActionListener value="3" target="#{relatorioTesteBean.tipoRelatorio}" />
-							</p:commandButton>
-							
-							<p:commandButton  ajax="false" value="odt"  action="#{relatorioTesteBean.montaRelatorio()}"   >
-								<f:setPropertyActionListener value="4" target="#{relatorioTesteBean.tipoRelatorio}" />
-							</p:commandButton>
-							
-							<p:commandButton  ajax="false" value="powerPoint"  action="#{relatorioTesteBean.montaRelatorio()}"   >
-								<f:setPropertyActionListener value="5" target="#{relatorioTesteBean.tipoRelatorio}" />
-							</p:commandButton>
-																		
-						</h:panelGrid>	
-					</f:facet>
-				 	</p:toolbar>
+			
 					
 	
 		

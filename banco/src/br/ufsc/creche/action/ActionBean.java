@@ -32,10 +32,8 @@ public abstract class ActionBean {
 	}
 
 	public static String redirecionar() {
-		//ExternalContext    sessao =   FacesContext.getCurrentInstance().getExternalContext();
 		String b = FacesUtil.getExternalContext().getApplicationContextPath();
-		//b = b+"/restrito/principal.jsf";
-		
+		b = b+"/restrito/principal.jsf";
 		return b;
 	}
 

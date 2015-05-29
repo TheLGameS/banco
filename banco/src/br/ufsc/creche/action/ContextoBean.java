@@ -40,7 +40,7 @@ public class ContextoBean {
 
 	public String logout() {
 		FacesUtil.invalidarSessao();
-		return "publico/login";
+		return "restrito/principal";
 	}
 
 }

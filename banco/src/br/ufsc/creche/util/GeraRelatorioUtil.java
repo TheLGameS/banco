@@ -146,7 +146,7 @@ public class GeraRelatorioUtil {
 		view.setTitle("SmartWeb Report");
 		view.setZoomRatio(1.00F);
 		view.setExtendedState(Frame.MAXIMIZED_BOTH);
-		view.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/br/com/smartsis/smartweb/imagem/smart32.png")));
+		view.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/br/ufsc/creche/imagem/smart32.png")));
 		view.setAlwaysOnTop(true);
 		view.setAutoRequestFocus(true);
 		view.setVisible(true);
