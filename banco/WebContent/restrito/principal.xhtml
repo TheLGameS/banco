@@ -7,24 +7,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 <ui:composition template="/templates/main.xhtml">
-                
     <ui:define name="content">                        
-	
-		<p:dialog appendToBody="true" closable="true" draggable="false"
-                  header="Colaborador" maximizable="false" minimizable="false"
-                  resizable="false" showEffect="slide" visible="true"
-                  position="center"     width="60%" height="400" > 
-
-		<h:form id="cadColaborador" style="width:60%; display:block"   >
-				<p:messages id="messageGe"   autoUpdate="true"  closable="true" showIcon="false" />
-				<p:outputLabel value="Label" ></p:outputLabel>
-				<p:inputText id="input"   ></p:inputText>
-				<p:commandButton value="OK" update="messageGe"  ></p:commandButton>
-				
-				
-		</h:form>
-
-		</p:dialog>
 
     </ui:define>
 </ui:composition>     
