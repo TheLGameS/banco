@@ -60,7 +60,7 @@ public class GeraRelatorioUtil {
 
 		HashMap<String, Object> parametrosCabecalho = new HashMap<String, Object>();
 		parametrosCabecalho.putAll(parametros);
-		parametrosCabecalho.put("empresa", ContextoUtil.getContextoBean().getUsuarioLogado().getLogin());
+		parametrosCabecalho.put("empresa", "");
 
 		gerarRelatorio(lista, nomeArquivo, tipoRelatorio, parametrosCabecalho );
 	}
