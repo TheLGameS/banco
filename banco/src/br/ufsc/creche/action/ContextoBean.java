@@ -23,11 +23,11 @@ public class ContextoBean {
 		//FacesContext context = FacesContext.getCurrentInstance();
 		//ExternalContext external = context.getExternalContext();
 		String login = FacesUtil.getExternalContext().getRemoteUser();
-		if (this.usuarioLogado == null || !login.equals(String.valueOf(usuarioLogado.getCdUsuario()))) {
+		if (this.usuarioLogado == null || !login.equals(String.valueOf(usuarioLogado.getCodigo()))) {
 			if (login != null) {
 				UsuarioRN usuarioRN = new UsuarioRN();
 				usuarioLogado = new Usuario();
-				usuarioLogado.setCdUsuario(Integer.valueOf(login));
+				usuarioLogado.setCodigo(Integer.valueOf(login));
 				this.usuarioLogado = usuarioRN.obterPorId(usuarioLogado);
 			}
 		}

@@ -19,7 +19,7 @@ public class UsuarioRN extends RN<Usuario> {
 
 	@Override
 	public void salvar(Usuario model) throws RNException {
-		if(model.getCdUsuario() == null  || model.getCdUsuario() ==  0){
+		if(model.getCodigo() == null  || model.getCodigo() ==  0){
 			try {
 
 				Usuario usuarioExistenteComLogin = buscarPorLogin(model.getLogin());

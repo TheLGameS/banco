@@ -31,7 +31,7 @@ public class UsuarioDAO extends DAO<Usuario> {
 
 	@Override
 	public Usuario obterPorId(Usuario filtro) {
-		return (Usuario) sessao.get(Usuario.class, filtro.getCdUsuario());
+		return (Usuario) sessao.get(Usuario.class, filtro.getCodigo());
 	}
 
 	@Override
