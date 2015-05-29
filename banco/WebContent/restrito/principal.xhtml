@@ -1,18 +1,27 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-	  xmlns:util="http://java.sun.com/jsf/composite/components/util"
-	  xmlns:p="http://primefaces.org/ui">
-	  
-  <ui:composition template="/templates/internaDesktop.xhtml">
-  	<ui:define name="corpo">
-  	<h:form>
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/templates/main.xhtml">
+                
+    <ui:define name="content">                        
+		<h1 class="page-header "> <i class="fa fa-bars"></i> Dashboard</h1>
 	
-	<p:outputLabel  value="LABEL" ></p:outputLabel>
+		<p:dialog appendToBody="true" closable="true" draggable="false"
+                  header="Colaborador" maximizable="false" minimizable="false"
+                  resizable="false" showEffect="slide" visible="true"
+                  position="center"     width="60%" height="400" > 
 
-  	</h:form>
-  	</ui:define>
-  </ui:composition>
+		<h:form id="cadColaborador" style="width:60%; display:block"   >
+				<p:messages id="messageGe"   autoUpdate="true"  closable="true" showIcon="false" />
+		</h:form>
+
+		</p:dialog>
+
+    </ui:define>
+</ui:composition>     
 </html>
