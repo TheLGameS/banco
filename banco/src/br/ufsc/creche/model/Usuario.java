@@ -14,7 +14,7 @@ import javax.persistence.Table;
 public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = 2471765773806278661L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer codigo;
@@ -24,9 +24,9 @@ public class Usuario implements Serializable {
 	private String login;
 
 	public Usuario() {
-		
+
 	}
-	
+
 	@Column(name = "\"CODIGO\"", unique = true, nullable = false)
 	public Integer getCodigo() {
 		return this.codigo;
@@ -53,21 +53,21 @@ public class Usuario implements Serializable {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
+
 	@Column(name = "\"PERMISSAO\"", length = 50)
 	public String getPermissao() {
 		return this.permissao;
 	}
-	
+
 	public void setPermissao(String permissao) {
 		this.permissao = permissao;
 	}
-	
+
 	@Column(name = "\"LOGIN\"", length = 50)
 	public String getLogin() {
 		return this.login;
 	}
-	
+
 	public void setLogin(String login) {
 		this.login = login;
 	}

@@ -14,6 +14,7 @@ public abstract class ActionBean {
 		FacesUtil.exibirMensagemErro(msg);
 	}
 
+	//	 ALTER ROLE postgres PASSWORD 'novasenha';
 
 	protected final void apresentarMenssagemDeErro(String msg, String tipo){
 		switch (tipo) {
