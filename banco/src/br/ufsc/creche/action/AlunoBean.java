@@ -38,11 +38,25 @@ public class AlunoBean extends ActionBean {
 			AlunoRN urn = new AlunoRN();
 			urn.salvar(aluno);
 		} catch (RNException e) {
-			FacesUtil.exibirMensagemAlerta("Erro ao tentar Salvar Aluno");
+			FacesUtil.exibirMensagemErro("Erro ao tentar Salvar Aluno");
 		}
 	}
 
+	
+	public void verificaMat(){
+		AlunoRN urn = new AlunoRN();
+		Aluno auxMat = urn.obterPorMatricula(aluno);
+		
+		if(auxMat !=null){
+			FacesUtil.exibirMensagemErro("Esta matricula já pertence a outro Aluno");
+		}
+	}
 
+	public void obterPorId(){
+		AlunoRN colRN = new AlunoRN();
+		aluno = colRN.obterPorId(aluno);
+	}
+	
 	public Aluno getAluno() {
 		return aluno;
 	}

@@ -43,5 +43,8 @@ public class AlunoRN  extends RN<Aluno>{
 	}
 	
 	
+	public Aluno obterPorMatricula(Aluno filtro) {
+		return ((AlunoDAO) dao).obterPorMatricula(filtro);
+	}
 
 }

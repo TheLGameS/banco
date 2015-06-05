@@ -82,7 +82,7 @@ public class Aluno implements Serializable {
 		this.nomePediatra = nomePediatra;
 	}
 
-	@Column(name = "telefone_pai", length = 11)
+	@Column(name = "telefone_pai", length = 13)
 	public String getTelefonePai() {
 		return telefonePai;
 	}
@@ -91,7 +91,7 @@ public class Aluno implements Serializable {
 		this.telefonePai = telefonePai;
 	}
 
-	@Column(name = "telefone_mae", length = 11)
+	@Column(name = "telefone_mae", length = 13)
 	public String getTelefoneMae() {
 		return telefoneMae;
 	}
@@ -100,7 +100,7 @@ public class Aluno implements Serializable {
 		this.telefoneMae = telefoneMae;
 	}
 
-	@Column(name = "telefone_pediatra", length = 11)
+	@Column(name = "telefone_pediatra", length = 13)
 	public String getTelefonePediatra() {
 		return telefonePediatra;
 	}
