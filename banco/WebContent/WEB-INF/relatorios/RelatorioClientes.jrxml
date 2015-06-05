@@ -23,7 +23,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="34" isBold="true"/>
 					</textElement>
-					<text><![CDATA[SmartWeb]]></text>
+					<text><![CDATA[CrechEscola]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="224" y="0" width="324" height="30" forecolor="#050505" uuid="a1651aae-38f8-449f-aa04-b25e606ed30a"/>
