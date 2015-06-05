@@ -6,18 +6,17 @@ import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "\"FUNCIONARIO\"")
+@SequenceGenerator(name = "seq_funcionario", sequenceName = "seq_funcionario", allocationSize = 1, initialValue = 1)
+@Table(name = "funcionario", schema="public")
 public class Funcionario implements Serializable {
 
 	private static final long serialVersionUID = 2471765773806278661L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer codigoFuncionario;
 	private String nome;
 	private String cpf;
@@ -30,8 +29,9 @@ public class Funcionario implements Serializable {
 
 	}
 
-
-	@Column(name = "\"CD_FUNCIONARIO\"", unique = true, nullable = false)
+	@Id  
+    @GeneratedValue(generator="seq_funcionario") 
+    @Column(name="cd_funcionario", unique=true, nullable=false)
 	public Integer getCodigoFuncionario() {
 		return codigoFuncionario;
 	}
@@ -41,7 +41,7 @@ public class Funcionario implements Serializable {
 		this.codigoFuncionario = codigoFuncionario;
 	}
 
-	@Column(name = "\"NOME\"", length = 50)
+	@Column(name = "nome", length = 50)
 	public String getNome() {
 		return nome;
 	}
@@ -51,7 +51,7 @@ public class Funcionario implements Serializable {
 		this.nome = nome;
 	}
 
-	@Column(name = "\"CPF\"", length = 11)
+	@Column(name = "cpf", length = 11, unique=true)
 	public String getCpf() {
 		return cpf;
 	}
@@ -61,7 +61,7 @@ public class Funcionario implements Serializable {
 		this.cpf = cpf;
 	}
 
-	@Column(name = "\"CARGO\"", length = 50)
+	@Column(name = "cargo", length = 50)
 	public String getCargo() {
 		return cargo;
 	}
@@ -71,7 +71,7 @@ public class Funcionario implements Serializable {
 		this.cargo = cargo;
 	}
 
-	@Column(name = "\"TELEFONE\"", length = 11)
+	@Column(name = "telefone", length = 11)
 	public String getTelefone() {
 		return telefone;
 	}
@@ -81,7 +81,7 @@ public class Funcionario implements Serializable {
 		this.telefone = telefone;
 	}
 
-	@Column(name = "SALARIO", nullable = false, precision = 14)
+	@Column(name = "salario", nullable = false, precision = 14)
 	public BigDecimal getSalario() {
 		return salario;
 	}

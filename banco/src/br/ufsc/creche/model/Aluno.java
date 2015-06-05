@@ -1,26 +1,24 @@
 package br.ufsc.creche.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "\"ALUNO\"")
+@SequenceGenerator(name = "seq_aluno", sequenceName = "seq_aluno", allocationSize = 1, initialValue = 1)
+@Table(name = "aluno", schema="public")
 public class Aluno implements Serializable {
 
 	private static final long serialVersionUID = 2471765773806278661L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer codigoAluno;
 	private String nome;
 	private String nomePai;
@@ -30,14 +28,16 @@ public class Aluno implements Serializable {
 	private String telefoneMae;
 	private String telefonePediatra;
 	private String autorizaRetirada;
-	private Date dataNascimento;
+	private   Date dataNascimento;
 	private String matricula;
 	
 	public Aluno() {
 
 	}
 
-	@Column(name = "\"CD_ALUNO\"", unique = true, nullable = false)
+	@Id  
+    @GeneratedValue(generator="seq_aluno") 
+    @Column(name="cd_aluno", unique=true, nullable=false ) 
 	public Integer getCodigoAluno() {
 		return codigoAluno;
 	}
@@ -46,7 +46,7 @@ public class Aluno implements Serializable {
 		this.codigoAluno = codigoAluno;
 	}
 
-	@Column(name = "\"NOME\"", length = 50)
+	@Column(name = "nome", length = 50)
 	public String getNome() {
 		return nome;
 	}
@@ -55,7 +55,7 @@ public class Aluno implements Serializable {
 		this.nome = nome;
 	}
 
-	@Column(name = "\"NOME_PAI\"", length = 50)
+	@Column(name = "nome_pai", length = 50)
 	public String getNomePai() {
 		return nomePai;
 	}
@@ -64,7 +64,7 @@ public class Aluno implements Serializable {
 		this.nomePai = nomePai;
 	}
 
-	@Column(name = "\"NOME_MAE\"", length = 50)
+	@Column(name = "nome_mae", length = 50)
 	public String getNomeMae() {
 		return nomeMae;
 	}
@@ -73,7 +73,7 @@ public class Aluno implements Serializable {
 		this.nomeMae = nomeMae;
 	}
 
-	@Column(name = "\"NOME_PEDIATRA\"", length = 50)
+	@Column(name = "nome_pediatra", length = 50)
 	public String getNomePediatra() {
 		return nomePediatra;
 	}
@@ -82,7 +82,7 @@ public class Aluno implements Serializable {
 		this.nomePediatra = nomePediatra;
 	}
 
-	@Column(name = "\"TELEFONE_PAI\"", length = 11)
+	@Column(name = "telefone_pai", length = 11)
 	public String getTelefonePai() {
 		return telefonePai;
 	}
@@ -91,7 +91,7 @@ public class Aluno implements Serializable {
 		this.telefonePai = telefonePai;
 	}
 
-	@Column(name = "\"TELEFONE_MAE\"", length = 11)
+	@Column(name = "telefone_mae", length = 11)
 	public String getTelefoneMae() {
 		return telefoneMae;
 	}
@@ -100,7 +100,7 @@ public class Aluno implements Serializable {
 		this.telefoneMae = telefoneMae;
 	}
 
-	@Column(name = "\"TELEFONE_PEDIATRA\"", length = 11)
+	@Column(name = "telefone_pediatra", length = 11)
 	public String getTelefonePediatra() {
 		return telefonePediatra;
 	}
@@ -109,7 +109,7 @@ public class Aluno implements Serializable {
 		this.telefonePediatra = telefonePediatra;
 	}
 
-	@Column(name = "\"AUTORIZA_RETIRADA\"", length = 50)
+	@Column(name = "autoriza_retirada", length = 50)
 	public String getAutorizaRetirada() {
 		return autorizaRetirada;
 	}
@@ -119,7 +119,7 @@ public class Aluno implements Serializable {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "DATA_NASCIMENTO", length = 10)
+	@Column(name = "data_nascimento", length = 10)
 	public Date getDataNascimento() {
 		return dataNascimento;
 	}
@@ -128,7 +128,7 @@ public class Aluno implements Serializable {
 		this.dataNascimento = dataNascimento;
 	}
 
-	@Column(name = "\"MATRICULA\"", length = 15, nullable=false, unique=true)
+	@Column(name = "matricula", length = 15, nullable=false, unique=true)
 	public String getMatricula() {
 		return matricula;
 	}

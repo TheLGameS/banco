@@ -5,18 +5,17 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "\"USUARIO\"")
+@SequenceGenerator(name = "seq_usuario", sequenceName = "seq_usuario", allocationSize = 1, initialValue = 1)
+@Table(name = "usuario", schema ="public")
 public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = 2471765773806278661L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer codigo;
 	private String senha;
 	private String status;
@@ -27,7 +26,9 @@ public class Usuario implements Serializable {
 
 	}
 
-	@Column(name = "\"CODIGO\"", unique = true, nullable = false)
+	@Id  
+    @GeneratedValue(generator="seq_usuario") 
+    @Column(name="cd_usuario", unique=true, nullable=false)	
 	public Integer getCodigo() {
 		return this.codigo;
 	}
@@ -36,7 +37,7 @@ public class Usuario implements Serializable {
 		this.codigo = codigo;
 	}
 
-	@Column(name = "\"SENHA\"", length = 15)
+	@Column(name = "senha", length = 15)
 	public String getSenha() {
 		return this.senha;
 	}
@@ -45,7 +46,7 @@ public class Usuario implements Serializable {
 		this.senha = senha;
 	}
 
-	@Column(name = "\"STATUS\"", nullable = false, length = 1)
+	@Column(name = "status", nullable = false, length = 1)
 	public String getStatus() {
 		return this.status;
 	}
@@ -54,7 +55,7 @@ public class Usuario implements Serializable {
 		this.status = status;
 	}
 
-	@Column(name = "\"PERMISSAO\"", length = 50)
+	@Column(name = "permissao", length = 50)
 	public String getPermissao() {
 		return this.permissao;
 	}
@@ -63,7 +64,7 @@ public class Usuario implements Serializable {
 		this.permissao = permissao;
 	}
 
-	@Column(name = "\"LOGIN\"", length = 50)
+	@Column(name = "login", length = 50)
 	public String getLogin() {
 		return this.login;
 	}

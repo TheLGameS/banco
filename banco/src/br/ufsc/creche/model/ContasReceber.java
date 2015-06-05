@@ -8,29 +8,31 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "\"CONTASRECEBER\"")
+@SequenceGenerator(name = "seq_contas_receber", sequenceName = "seq_contas_receber", allocationSize = 1, initialValue = 1)
+@Table(name = "contasreceber", schema="public")
 public class ContasReceber implements Serializable {
 
 	private static final long serialVersionUID = 2471765773806278661L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer codigoContasReceber;
 	private Date dataVencimento;
 	private BigDecimal valor;
-	private Integer codigoAluno;
+	private Aluno aluno;
 	private String observacao;
 
-	@Column(name = "\"CD_CONTAS_RECEBER\"", unique = true, nullable = false)
+	
+	@Id  
+    @GeneratedValue(generator="seq_contas_receber") 
+    @Column(name="cd_contas_receber", unique=true, nullable=false)
 	public Integer getCodigoContasReceber() {
 		return codigoContasReceber;
 	}
@@ -40,7 +42,7 @@ public class ContasReceber implements Serializable {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "DATA_VENCIMENTO", length = 10)
+	@Column(name = "data_vencimento", length = 10)
 	public Date getDataVencimento() {
 		return dataVencimento;
 	}
@@ -49,7 +51,7 @@ public class ContasReceber implements Serializable {
 		this.dataVencimento = dataVencimento;
 	}
 
-	@Column(name = "VALOR", nullable = false, precision = 14)
+	@Column(name = "valor", nullable = false, precision = 14)
 	public BigDecimal getValor() {
 		return valor;
 	}
@@ -58,17 +60,17 @@ public class ContasReceber implements Serializable {
 		this.valor = valor;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CD_ALUNO", nullable = false)
-	public Integer getCodigoAluno() {
-		return codigoAluno;
+	@ManyToOne(fetch = FetchType.LAZY )
+	@JoinColumn(name = "cd_aluno", nullable = false)
+	public Aluno getCodigoAluno() {
+		return this.aluno;
 	}
 
-	public void setCodigoAluno(Integer codigoAluno) {
-		this.codigoAluno = codigoAluno;
+	public void setCodigoAluno(Aluno codigoAluno) {
+		this.aluno = codigoAluno;
 	}
 
-	@Column(name = "\"OBSERVACAO\"", length = 50)
+	@Column(name = "observacao", length = 50)
 	public String getObservacao() {
 		return observacao;
 	}

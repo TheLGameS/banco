@@ -3,9 +3,9 @@
                                          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
  <session-factory name="creche">
-  <property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+  <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
   <property name="connection.datasource">java:/comp/env/jdbc/FinanceiroDB</property>
-  <property name="hbm2ddl.auto">update</property>
+  <property name="hibernate.hbm2ddl.auto">update</property>
   <property name="hibernate.show_sql">true</property>
   <property name="hibernate.format_sql">true</property>
   <property name="hibernate.generate_statistics">true</property>
@@ -15,5 +15,9 @@
   <property name="hibernate.c3p0.max_statements">50</property>
   <property name="current_session_context_class">thread</property>
   <mapping class="br.ufsc.creche.model.Usuario"/>
+  <mapping class="br.ufsc.creche.model.Aluno"/>
+  <mapping class="br.ufsc.creche.model.ContasReceber"/>
+  <mapping class="br.ufsc.creche.model.Funcionario"/>
+  <mapping class="br.ufsc.creche.model.Pagamento"/>
  </session-factory>
 </hibernate-configuration>

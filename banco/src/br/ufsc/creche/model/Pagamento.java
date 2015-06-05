@@ -8,36 +8,37 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "\"PAGAMENTO\"")
+@SequenceGenerator(name = "seq_pagamento", sequenceName = "seq_pagamento", allocationSize = 1, initialValue = 1)
+@Table(name = "pagamento", schema="public")
 public class Pagamento implements Serializable {
 
 	private static final long serialVersionUID = 2471765773806278661L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer codigoPagamento;
 	private Date dataPagamento;
 	private BigDecimal juros;
 	private BigDecimal valorLiquido;
 	private BigDecimal valorBruto;
-	private Integer codigoAluno;
-	private Integer codigoContasReceber;
+	private Aluno aluno;
+	private ContasReceber contasReceber;
 	
 	
 	public Pagamento() {
 
 	}
 
-	@Column(name = "\"CD_PAGAMENTO\"", unique = true, nullable = false)
+	@Id  
+    @GeneratedValue(generator="seq_pagamento") 
+    @Column(name="cd_pagamento", unique=true, nullable=false)
 	public Integer getCodigoPagamento() {
 		return codigoPagamento;
 	}
@@ -49,7 +50,7 @@ public class Pagamento implements Serializable {
 
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "DATA_PAGAMENTO", length = 10)
+	@Column(name = "data_pagamento", length = 10)
 	public Date getDataPagamento() {
 		return dataPagamento;
 	}
@@ -59,7 +60,7 @@ public class Pagamento implements Serializable {
 		this.dataPagamento = dataPagamento;
 	}
 
-	@Column(name = "JUROS", nullable = false, precision = 14)
+	@Column(name = "juros", nullable = false, precision = 14)
 	public BigDecimal getJuros() {
 		return juros;
 	}
@@ -69,7 +70,7 @@ public class Pagamento implements Serializable {
 		this.juros = juros;
 	}
 
-	@Column(name = "VALOR_LIQUIDO", nullable = false, precision = 14)
+	@Column(name = "valor_liquido", nullable = false, precision = 14)
 	public BigDecimal getValorLiquido() {
 		return valorLiquido;
 	}
@@ -79,7 +80,7 @@ public class Pagamento implements Serializable {
 		this.valorLiquido = valorLiquido;
 	}
 
-	@Column(name = "VALOR_BRUTO", nullable = false, precision = 14)
+	@Column(name = "valor_bruto", nullable = false, precision = 14)
 	public BigDecimal getValorBruto() {
 		return valorBruto;
 	}
@@ -90,24 +91,24 @@ public class Pagamento implements Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CD_ALUNO", nullable = false)
-	public Integer getCodigoAluno() {
-		return codigoAluno;
+	@JoinColumn(name = "cd_aluno", nullable = false)
+	public Aluno getCodigoAluno() {
+		return this.aluno;
 	}
 
-
-	public void setCodigoAluno(Integer codigoAluno) {
-		this.codigoAluno = codigoAluno;
+	public void setCodigoAluno(Aluno codigoAluno) {
+		this.aluno = codigoAluno;
 	}
+
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CD_CONTAS_RECEBER", nullable = false)
-	public Integer getCodigoContasReceber() {
-		return codigoContasReceber;
+	@JoinColumn(name = "cd_contas_receber", nullable = false)
+	public ContasReceber getCodigoContasReceber() {
+		return this.contasReceber;
 	}
 
 
-	public void setCodigoContasReceber(Integer codigoContasReceber) {
-		this.codigoContasReceber = codigoContasReceber;
+	public void setCodigoContasReceber(ContasReceber codigoContasReceber) {
+		this.contasReceber = codigoContasReceber;
 	}
 }
