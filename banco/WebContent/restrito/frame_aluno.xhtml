@@ -12,15 +12,14 @@
     <ui:define name="content">    
 
 		<p:dialog  appendToBody="true" closable="true" draggable="false"
-                  header="Colaborador" maximizable="false" minimizable="false"
+                  header="Col" maximizable="false" minimizable="false"
                   resizable="false"   visible="true" 
-                  position="center"     width="94%"  height="515" onHide="redirecionar();"   
+                  position="center"     width="70%"  height="515"    
                   closeOnEscape="true"  style="margin-top:0.5%" id="idDlgColaborador" widgetVar="dlgColaborador" 
                   > 
 
 		<h:form id="cadColaborador"  >
 				<p:messages id="messageGe"    closable="true" showIcon="false" globalOnly="true"/>
-
 
 				<p:dataTable value="#{colaboradorBean.listaTelaWeb}"
 					resizableColumns="true" draggableColumns="false" id="colaborador"
@@ -30,15 +29,6 @@
 					paginatorPosition="bottom" emptyMessage="Não existe dados para a Consulta."
 					scrollable="false"     liveResize="true"    styleClass=".ui-datatable-hor-scroll" tableStyle="table-layout:auto;width:100%;"  
 					>
-						
- 
- 				   <!-- <p:columns value="#{colaboradorBean.tela}" var="column"  rendered="#{column.TWU_POS gt 0 }" id="colunasDinamicas"    >  
- 			            <f:facet name="header"    > 
- 			                <h:outputText value="#{column.TLW_DES}"     /> 
- 			            </f:facet> 
-		                <h:outputText value="#{colaboradorVO[column.TWU_CPO]}" />		
- 					</p:columns>  -->  
-					
 					
 				 	<p:column headerText="Ações"   width="85"  id="acoes"  resizable="true" exportable="false"   >
 						<div align="center"  >
@@ -65,10 +55,6 @@
 						</div>	
 					</p:column> 
 					
- 
- 				<p:ajax event="sort"    listener="#{colaboradorBean.sort()}"      />
- 				<p:ajax event="filter"  listener="#{colaboradorBean.filter()}"    />
- 				<p:ajax event="page"    listener="#{colaboradorBean.page()}"      />
  
 			  	   <c:forEach var="column" items="#{colaboradorBean.tela}"  >
 			  	   
@@ -165,29 +151,6 @@
 						           
 					     </p:menu>  
 
-						
-    
-						<p:commandButton title="Tabela" icon="ui-icon-calculator" 	id="botaoTabela"    actionListener="#{colaboradorBean.escolhaCamposTabela()}"  style="display:none" >
-							<p:ajax  event="dialogReturn"   listener="#{colaboradorBean.preDestroy()}" update=":cadColaborador" />
-							<f:setPropertyActionListener value="#{colaboradorBean.telaWebUsuario}" target="#{telaWebCamposBean.telaWebUsuario}" />
-							<f:setPropertyActionListener value="#{colaboradorBean.nomeJanela}" target="#{telaWebCamposBean.nomeJanela}" />
-						</p:commandButton>
-						
-						<p:commandButton title="Filtro" icon="ui-icon-lightbulb" 	id="botaoFiltro"    actionListener="#{colaboradorBean.escolhaTipoFiltro()}"  style="display:none" >
-							<p:ajax  event="dialogReturn"   listener="#{colaboradorBean.preDestroy()}" update=":cadColaborador" />
-							<f:setPropertyActionListener value="#{colaboradorBean.telaWebUsuario}" target="#{tipoFiltroBean.telaWebUsuario}" />
-							<f:setPropertyActionListener value="#{colaboradorBean.nomeJanela}" target="#{tipoFiltroBean.nomeJanela}" />
-						</p:commandButton>
-						
-					<script type="text/javascript"> 
-           				function clickBotaoTabela() { 
-                			document.getElementById("configuracao:botaoTabela").click();
-          			  	}
-           				function clickBotaoFiltro() { 
-                			document.getElementById("configuracao:botaoFiltro").click();
-          			  	}
-       			 	</script> 
-						  
 						
 					</f:facet>
 				</p:toolbar>
