@@ -1,22 +1,7 @@
-/*package br.ufsc.creche.dao;
+/*
+ * public class ColaboradorDAO extends DAO<Colaborador> {
+ 
 
-import java.util.List;
-
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.ProjectionList;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.transform.Transformers;
-
-import br.ufsc.creche.VO.ColaboradorVO;
-import br.ufsc.creche.VO.TelaWebVO;
-import br.ufsc.creche.model.Colaborador;
-import br.ufsc.creche.util.DAOException;
-import br.ufsc.creche.util.Diversos;
-import br.ufsc.creche.util.HibernateUtil;
-
-public class ColaboradorDAO extends DAO<Colaborador> {
 
 	@Override
 	public void salvar(Colaborador model) throws DAOException {

@@ -12,17 +12,33 @@ public class AlunoDAO extends DAO<Aluno> {
 
 	@Override
 	public void salvar(Aluno model) throws DAOException {
-		sessao.saveOrUpdate(model);
+		try {
+			sessao.saveOrUpdate(model);
+			sessao.flush();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException(e);
+		}
 	}
 
 	@Override
 	public void excluir(Aluno model) throws DAOException {
-		sessao.delete(model);
+		try {
+			sessao.delete(model);
+			sessao.flush();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException(e);
+		}
 	}
 
 	@Override
 	public Aluno obterPorId(Aluno filtro) {
-		return (Aluno) sessao.get(Aluno.class, filtro.getCodigoAluno());
+		Aluno col = (Aluno) sessao.get(Aluno.class, filtro.getCodigoAluno());
+		if(col!=null) {
+			sessao.setReadOnly(col, true);
+		}
+		return col;
 	}
 
 	@Override
@@ -30,11 +46,5 @@ public class AlunoDAO extends DAO<Aluno> {
 		return sessao.createCriteria(Aluno.class).list();
 	}
 
-	public Aluno buscarPorLogin(String login){
-		String hql = "select u from Aluno u where u.login = :login";
-		Query consulta = sessao.createQuery(hql);
-		consulta.setString("login", login);
-
-		return (Aluno) consulta.uniqueResult();
-	}
+	   
 }

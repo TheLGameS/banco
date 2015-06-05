@@ -1,44 +1,4 @@
-/*package br.ufsc.creche.action;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
-import javax.faces.context.FacesContext;
-
-import org.primefaces.component.commandbutton.CommandButton;
-import org.primefaces.component.datatable.DataTable;
-import org.primefaces.event.SelectEvent;
-
-import br.ufsc.creche.VO.ColaboradorVO;
-import br.ufsc.creche.VO.MovimentoVO;
-import br.ufsc.creche.VO.TelaWebVO;
-import br.ufsc.creche.model.Colaborador;
-import br.ufsc.creche.model.Municipio;
-import br.ufsc.creche.model.TelaWeb;
-import br.ufsc.creche.model.TelaWebId;
-import br.ufsc.creche.model.TelaWebUsuario;
-import br.ufsc.creche.model.TelaWebUsuarioId;
-import br.ufsc.creche.negocio.ColaboradorRN;
-import br.ufsc.creche.negocio.MunicipioRN;
-import br.ufsc.creche.negocio.TelaWebRN;
-import br.ufsc.creche.negocio.TelaWebUsuarioRN;
-import br.ufsc.creche.parameter.ReceitaFederalPar;
-import br.ufsc.creche.parameter.SintegraPar;
-import br.ufsc.creche.util.CepWebService;
-import br.ufsc.creche.util.ContextoUtil;
-import br.ufsc.creche.util.Diversos;
-import br.ufsc.creche.util.FacesUtil;
-import br.ufsc.creche.util.RNException;
+/*
 
 @ManagedBean
 @ViewScoped

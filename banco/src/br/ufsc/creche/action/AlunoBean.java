@@ -6,10 +6,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
 import br.ufsc.creche.model.Aluno;
-import br.ufsc.creche.model.Usuario;
 import br.ufsc.creche.negocio.AlunoRN;
-import br.ufsc.creche.negocio.UsuarioRN;
-import br.ufsc.creche.util.ContextoUtil;
+import br.ufsc.creche.util.FacesUtil;
 import br.ufsc.creche.util.RNException;
 
 
@@ -31,7 +29,7 @@ public class AlunoBean extends ActionBean {
 			urn.excluir(aluno);
 			lista = null;
 		} catch (RNException e) {
-			apresentarMenssagemDeErro(e);
+			FacesUtil.exibirMensagemErro("Erro ao tentar Excluir Aluno");
 		}
 	}
 
@@ -40,7 +38,7 @@ public class AlunoBean extends ActionBean {
 			AlunoRN urn = new AlunoRN();
 			urn.salvar(aluno);
 		} catch (RNException e) {
-			apresentarMenssagemDeErro(e);
+			FacesUtil.exibirMensagemAlerta("Erro ao tentar Salvar Aluno");
 		}
 	}
 

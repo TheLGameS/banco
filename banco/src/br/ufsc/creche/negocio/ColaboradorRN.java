@@ -1,14 +1,4 @@
-/*package br.ufsc.creche.negocio;
-
-import java.util.List;
-
-import br.ufsc.creche.VO.ColaboradorVO;
-import br.ufsc.creche.VO.TelaWebVO;
-import br.ufsc.creche.dao.ColaboradorDAO;
-import br.ufsc.creche.model.Colaborador;
-import br.ufsc.creche.util.DAOException;
-import br.ufsc.creche.util.RNException;
-
+/*
 
 public class ColaboradorRN extends RN<Colaborador> {
 
