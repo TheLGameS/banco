@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+		
+<ui:composition template="/templates/main.xhtml">
+    <ui:define name="content">                        
+	
+	<p:dialog appendToBody="true" closable="true" draggable="false"
+        header="Web Service CEP" maximizable="false" minimizable="false"
+        position="center" resizable="false"  visible="true"    >
+        
+        <p:messages  id="me"      closable="true"  >   </p:messages>
+        
+        <h:form id="frmBusca">
+            <h:panelGrid id="pnCEP" columns="4"/>
+        </h:form>
+ 
+        <h:form id="frmResultado">
+            <h:panelGrid id="pnResultado" columns="2">
+            
+             	<h:outputText value="CEP: " style="font-weight:bold; padding-right: 5px; float: right;" />
+                <p:inputMask mask="99999-999" value="#{cepServiceBean.cep}"  >
+                	<p:ajax  event="change" listener="#{cepServiceBean.encontraCEP}"   update="frmResultado, me" onstart="PF('statusDialog').show()" 	onsuccess="PF('statusDialog').hide()" />
+				</p:inputMask> 
+            
+                <h:outputLabel value="UF: "
+                    style="font-weight:bold; padding-right: 5px; float: right;" />
+                <p:inputText size="5" value="#{cepServiceBean.estado}" />
+ 
+                <h:outputLabel value="Logradouro: "
+                    style="font-weight:bold; padding-right: 5px; float: right;" />
+                <p:inputText size="50"
+                    value="#{cepServiceBean.tipoLogradouro} #{cepServiceBean.logradouro}" />
+ 
+                <h:outputLabel value="Cidade: "
+                    style="font-weight:bold; padding-right: 5px; float: right;" />
+                <p:inputText size="50" value="#{cepServiceBean.cidade}" />
+ 
+                <h:outputLabel value="Bairro: " style="font-weight:bold; padding-right: 5px; float: right;" />
+                <p:inputText size="25" value="#{cepServiceBean.bairro}" />
+                
+            </h:panelGrid>
+        </h:form>
+    </p:dialog>
+	
+	<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false" >
+				<p:graphicImage name="/imagens/progresso.gif" />
+	</p:dialog>
+				
+    </ui:define>
+</ui:composition>   
+</html>
