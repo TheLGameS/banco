@@ -19,33 +19,6 @@
 	
 	<h:form>
 	
-	
-	<!--  <p:dataTable var="car" value="#{municipioBean.lista}" scrollable="true" scrollHeight="150" scrollWidth="300" frozenColumns="1">
-        <p:column headerText="Id" footerText="Id" width="10%" >
-            <h:outputText value="#{car.munCod}" />
-        </p:column>
-        <p:column headerText="Cep" footerText="Cep">
-            <h:outputText value="#{car.estado.estSig}" />
-        </p:column>
-        <p:column headerText="Nome" footerText="Nome">
-            <h:outputText value="#{car.munNom}" />
-        </p:column>
-        <p:column headerText="Estado" footerText="Estado">
-            <h:outputText value="#{car.estado.estNom}" />
-        </p:column>
-    </p:dataTable> -->
-	
-	
-	<!-- <p:dataTable var="car2" scrollable="false"  paginatorPosition="bottom"  scrollHeight="150" rows="10" scrollWidth="300" 
-	             frozenColumns="3" value="#{colaboradorBean.listaTelaWeb}" liveResize="true" 
-	             tableStyle="table-layout:auto;width:100%;"  styleClass=".ui-datatable-hor-scroll" 
-	             resizableColumns="true" paginator="true" draggableColumns="false"  >
-	    <p:columns value="#{colaboradorBean.tela}" var="column"  rendered="#{column.TWU_POS gt 0 }" id="colunasDinamicas"  headerText="#{column.TLW_DES}"   >  
-	               <h:outputText value="#{car2[column.TWU_CPO]}"  />		
-		</p:columns>    
-    </p:dataTable>
-	 -->
-	
 					<p:dataTable id="idDatable" value="#{usuarioBean.lista}" var="c"  >
 						<p:column  style="text-align: left;">
 							<f:facet name="header">
@@ -74,12 +47,6 @@
 	
 		
 	</h:form>
-	<!-- <script type="text/javascript"> 
-		function click() { 
-  			document.getElementById("a:c").click();
-	  	}
- 	</script>  -->
-
 		 </p:dialog>
 	</ui:define>
 </ui:composition>
