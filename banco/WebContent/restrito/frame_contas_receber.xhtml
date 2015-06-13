@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	>
+	
+<ui:composition template="/templates/main.xhtml">
+    <ui:define name="content">    
+
+		<p:dialog  appendToBody="true" closable="true" draggable="false"
+                  header="Contas Receber" maximizable="false" minimizable="false"
+                  resizable="false"   visible="true" 
+                  position="center"     width="70%"  height="450"    
+                  closeOnEscape="true"  style="margin-top:0.5%" id="idDlgReceber" widgetVar="dlgReceber" 
+                  > 
+
+		<h:form id="lanReceber"  >
+				<p:messages id="messageGe"    closable="true" showIcon="false" globalOnly="true"/>
+
+				<p:dataTable value="#{contasReceberBean.lista}"
+					resizableColumns="true" draggableColumns="false" id="idTableColaborador"
+					var="receberJsf" rows="10" paginator="true" sortMode="multiple"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					currentPageReportTemplate="Visualizando {startRecord} - {endRecord} de {totalRecords} -  Página: {currentPage}/{totalPages}"
+					paginatorPosition="bottom" emptyMessage="Não existe dados para a Consulta."
+					scrollable="false"     liveResize="true"    styleClass=".ui-datatable-hor-scroll" tableStyle="table-layout:auto;width:100%;"  
+					>
+					
+				 	<p:column headerText="Ações"   width="85"  id="acoes"  resizable="true" exportable="false"   >
+						<div align="center"  >
+								<p:commandButton action="#{contasReceberBean.obterPorId()}"  update=":dlgIncluir" resetValues="true"
+									icon="ui-icon-pencil"   title="Alterar" oncomplete="PF('dlgIncluir').show();">
+									<f:setPropertyActionListener value="#{receberJsf}" target="#{contasReceberBean.contasReceber}"  />
+									<f:ajax  update=":dlgIncluir:dlg:sit"  />
+								</p:commandButton>
+								
+								<p:commandButton  update=":confirmacao,:lanReceber:idTableColaborador, :lanReceber:messageGe" icon="ui-icon-trash" title="Estornar"   
+									onclick="PF('confirmation').show();"  action="#{contasReceberBean.excluir()}"  id="btnExclui">
+									<p:confirm  icon="ui-icon-blank" message="Confirma o estorno ?"   />
+									<f:setPropertyActionListener  value="#{receberJsf}" target="#{contasReceberBean.contasReceber}"  />
+								</p:commandButton>
+								
+						</div>	
+					</p:column> 
+					
+					
+					
+					<p:column headerText="Código"  sortBy="#{receberJsf.codigoContasReceber}"  >
+						<p:outputLabel value="#{receberJsf.codigoContasReceber}" />
+					</p:column>
+					
+					<p:column headerText="Valor"  >
+						<p:outputLabel value="#{receberJsf.valor}" >
+						<f:convertNumber pattern="#,##0.00" type="currency" minFractionDigits="2" />
+						</p:outputLabel>
+					</p:column>
+					
+					<p:column headerText="Data Vencimento"  >
+						<p:outputLabel value="#{receberJsf.dataVencimento}" >
+						<f:convertDateTime pattern="dd/MM/yyyy"/>
+						</p:outputLabel>
+					</p:column>
+					
+					
+					<p:column headerText="Nome Aluno"  filterMatchMode="contains" filterBy="#{receberJsf.observacao}"  >
+						<p:outputLabel value="#{receberJsf.observacao}" />
+					</p:column>
+					
+					
+ 				 
+ 			</p:dataTable>
+	
+		</h:form>
+
+
+		<h:form id="configuracao"   >
+		
+		<p:toolbar>
+					<f:facet name="left"  >
+						<p:commandButton value="Incluir"  icon="ui-icon-plusthick" 	action="#{contasReceberBean.novo}" oncomplete="PF('dlgIncluir').show();" 
+						update=":dlgIncluir" >
+						</p:commandButton>
+					</f:facet>
+					<f:facet name="right">
+					
+					 	 
+						 <p:commandButton  id="dynaButton" value="Outras Ações" type="button" icon="fa fa-bars" />
+						 
+						 
+					     <p:menu overlay="true" trigger="dynaButton" my="left top" at="left bottom"  >
+
+								<p:submenu label="Exportar">	
+						           <p:menuitem>
+							           <h:commandLink styleClass="ui-menuitem-link" >
+										   <p:graphicImage name="/imagens/pdf.png" width="8%" style="float:left"/>
+										   <h:outputText value="Formato PDF" styleClass="ui-menuitem-text" />
+										   <p:dataExporter type="pdf" target=":lanReceber:idTableColaborador" fileName="rel" orientation="Landscape" encoding="ISO-8859-1" />
+						   			   </h:commandLink>
+						           </p:menuitem>
+						           
+						           <p:menuitem>
+							           <h:commandLink styleClass="ui-menuitem-link" >
+										   <p:graphicImage name="/imagens/excel.png" width="8%" style="float:left"/>
+										   <h:outputText value="Formato Excel" styleClass="ui-menuitem-text" />
+										   <p:dataExporter type="xls" target=":lanReceber:idTableColaborador" fileName="rel" />
+						   			   </h:commandLink>
+						           </p:menuitem>
+						           </p:submenu>
+						           
+						           
+					     </p:menu>  
+
+						
+					</f:facet>
+				</p:toolbar>
+		
+		
+		</h:form>
+
+
+
+
+
+
+		
+		<h:form id="confirmacao" >
+		    <p:confirmDialog    severity="alert" widgetVar="confirmation"  global="true" closeOnEscape="true" closable="false" >
+    	    	<center>
+    	    		<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" actionListener="#{contasReceberBean.excluir}" process="@form" update=":lanReceber:idTableColaborador, :lanReceber:messageGe"   > 
+    					<f:setPropertyActionListener  value="#{receberJsf}" target="#{contasReceberBean.contasReceber}"  />
+    				</p:commandButton>
+		        	<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no"    icon="ui-icon-close"/>
+		        </center>
+    		</p:confirmDialog>
+		</h:form>
+				
+		</p:dialog>
+		
+		
+			<p:dialog id="dlgIncluir" widgetVar="dlgIncluir" resizable="false" modal="true" draggable="false" header="Lançamento" location="center" closable="false"
+			          closeOnEscape="false" height="44%" width="44%"  showHeader="false" >
+			
+			<p:messages id="cadastro" showIcon="false" closable="true" globalOnly="false" ></p:messages> 
+
+		           <h:form  id="dlg"  onkeypress="if (event.keyCode == 13) { return false;}" >
+				
+					<p:fieldset >
+						<h:panelGrid  styleClass="semBorda" columns="2" id="panelDlg" >
+
+						<p:outputLabel value="Código" for="codigo" />
+						<h:panelGrid  columns="1" >
+							<p:inputText id="codigo" value="#{contasReceberBean.contasReceber.codigoContasReceber}"   disabled="true"	maxlength="7" style="padding-right: 5px; float: right; width:45px " />
+						</h:panelGrid>
+
+						<p:outputLabel for="aluno" value="Aluno" id="lbAluno" />
+						<h:panelGrid  columns="3" >
+							<p:inputText id="aluno"   maxlength="6" size="3" value="#{contasReceberBean.alunoPesquisa.codigoAluno}" required="true"  requiredMessage="Campo Aluno é Obrigatório" onkeypress="return somenteNumero(event)"    >
+								<p:ajax event="change" update="aluno, nomeAluno" listener="#{contasReceberBean.buscaAluno()}"    />
+ 							</p:inputText>
+ 							
+							<p:inputText id="nomeAluno" value="#{contasReceberBean.alunoPesquisa.nome}"    readonly="true"  style="width:230px" />
+							
+							<p:commandButton value="..."    id="botaoConsulta"  actionListener="#{contasReceberBean.escolhaDeAluno()}" immediate="true"   >
+								<p:ajax event="dialogReturn" listener="#{contasReceberBean.retornoAlunoSelecionado}"   update="aluno, nomeAluno"  />
+							</p:commandButton>
+							<p:message for="aluno" display="icon" severity="info" />	
+						</h:panelGrid>
+							
+							<p:outputLabel value="Data Vencimento" for="data"  />
+							<h:panelGrid columns="1"  >
+								<p:calendar id="data" value="#{contasReceberBean.contasReceber.dataVencimento}" size="13" pattern="dd-MM-yyyy" mask="true"  locale="pt"  required="true"  requiredMessage="Campo Data Vencimento é Obrigatório" />
+							</h:panelGrid>
+							
+							<p:outputLabel value="Valor" for="valor"  />
+							<h:panelGrid  columns="1" >
+								<p:inputText   id="valor" value="#{contasReceberBean.contasReceber.valor}"  maxlength="8" style="width:100px;"  required="true"  requiredMessage="Campo Valor é Obrigatório" onkeypress="return somenteNumero(event)" >
+									<f:convertNumber pattern="#,##0.00" type="currency" minFractionDigits="2" />
+									<p:ajax event="blur" update="valor" ></p:ajax>
+								</p:inputText>
+							</h:panelGrid>
+							
+							<h:panelGrid columns="1"  id="fim">
+									<h:inputHidden value="#{contasReceberBean.contasReceber.codigoContasReceber}" />
+							</h:panelGrid>		
+								
+						</h:panelGrid>
+					</p:fieldset>
+				<br />
+				<div align="center" id="conCan" >
+					<p:commandButton value="Confirmar" id="btnGrava" action="#{contasReceberBean.salvar}" update=":lanReceber,  cadastro   "   icon="ui-icon-check" oncomplete="if (args &amp;&amp; !args.validationFailed) PF('dlgIncluir').hide();"    > 	
+					</p:commandButton> 
+	
+					<p:commandButton value="Cancelar" id="btnCancela" onclick="PF('dlgIncluir').hide();" icon="ui-icon-closethick"  immediate="true" ajax="true" update=":dlgIncluir" resetValues="true" process="@all"  >
+					</p:commandButton>
+					
+				</div>
+			</h:form>
+		           
+		           
+		        
+				
+    		
+		</p:dialog>
+		
+		
+		
+		<p:dialog widgetVar="statusDialog" modal="true"     draggable="false" 
+				  closable="false"         resizable="false" showHeader="false" >
+					<p:graphicImage  library="imagens" name="progresso.gif" />
+		</p:dialog>
+		
+	</ui:define>
+</ui:composition>
+</html>

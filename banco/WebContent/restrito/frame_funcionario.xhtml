@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	>
+	
+<ui:composition template="/templates/main.xhtml">
+    <ui:define name="content">    
+
+		<p:dialog  appendToBody="true" closable="true" draggable="false"
+                  header="Cadastro de Funcionários" maximizable="false" minimizable="false"
+                  resizable="false"   visible="true" 
+                  position="center"     width="70%"  height="450"    
+                  closeOnEscape="true"  style="margin-top:0.5%" id="idDlgFuncionario" widgetVar="dlgFuncionario" 
+                  > 
+
+		<h:form id="cadFuncionario"  >
+				<p:messages id="messageGe"    closable="true" showIcon="false" globalOnly="true"/>
+
+				<p:dataTable value="#{funcionarioBean.lista}"
+					resizableColumns="true" draggableColumns="false" id="idTableColaborador"
+					var="funcionarioJsf" rows="10" paginator="true" sortMode="multiple"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					currentPageReportTemplate="Visualizando {startRecord} - {endRecord} de {totalRecords} -  Página: {currentPage}/{totalPages}"
+					paginatorPosition="bottom" emptyMessage="Não existe dados para a Consulta."
+					scrollable="false"     liveResize="true"    styleClass=".ui-datatable-hor-scroll" tableStyle="table-layout:auto;width:100%;"  
+					>
+					
+				 	<p:column headerText="Ações"   width="85"  id="acoes"  resizable="true" exportable="false"   >
+						<div align="center"  >
+								<p:commandButton action="#{funcionarioBean.obterPorId()}"  update=":dlgIncluir" resetValues="true"
+									icon="ui-icon-pencil"   title="Alterar" oncomplete="PF('dlgIncluir').show();">
+									<f:setPropertyActionListener value="#{funcionarioJsf}" target="#{funcionarioBean.funcionario}"  />
+									<f:ajax  update=":dlgIncluir:dlg:sit"  />
+								</p:commandButton>
+								
+								<p:commandButton  update=":confirmacao,:cadFuncionario:idTableColaborador, :cadFuncionario:messageGe" icon="ui-icon-trash" title="Excluir"   
+									onclick="PF('confirmation').show();"  action="#{funcionarioBean.excluir()}"  id="btnExclui">
+									<p:confirm  icon="ui-icon-blank" message="Confirma a exclusão ?"   />
+									<f:setPropertyActionListener  value="#{funcionarioJsf}" target="#{funcionarioBean.funcionario}"  />
+								</p:commandButton>
+								
+								<p:commandButton action="#{funcionarioBean.obterPorId()}"
+									icon="ui-icon-search"   title="Visualizar"  update=":dlgIncluir" resetValues="true"
+									oncomplete="PF('dlgIncluir').show();"  >
+									<f:setPropertyActionListener value="#{funcionarioJsf}" target="#{funcionarioBean.funcionario}"  />
+								</p:commandButton>
+						</div>	
+					</p:column> 
+					
+					
+					
+					<p:column headerText="Código"  sortBy="#{funcionarioJsf.codigoFuncionario}"  >
+						<p:outputLabel value="#{funcionarioJsf.codigoFuncionario}" />
+					</p:column>
+					
+					<p:column headerText="CPF"  >
+						<p:outputLabel value="#{funcionarioJsf.cpf}" />
+					</p:column>
+					
+					<p:column headerText="Nome"  filterMatchMode="contains" filterBy="#{funcionarioJsf.nome}"  >
+						<p:outputLabel value="#{funcionarioJsf.nome}" />
+					</p:column>
+					
+					<p:column headerText="Cargo"  >
+						<p:outputLabel value="#{funcionarioJsf.cargo}" />
+					</p:column>
+					
+					<p:column headerText="Telefone"  >
+						<p:outputLabel value="#{funcionarioJsf.telefone}" />
+					</p:column>
+					
+ 				 
+ 			</p:dataTable>
+	
+		</h:form>
+
+
+		<h:form id="configuracao"   >
+		
+		<p:toolbar>
+					<f:facet name="left"  >
+						<p:commandButton value="Incluir"  icon="ui-icon-plusthick" 	action="#{funcionarioBean.novo}" oncomplete="PF('dlgIncluir').show();" 
+						update=":dlgIncluir" >
+						</p:commandButton>
+					</f:facet>
+					<f:facet name="right">
+					
+					 	 
+						 <p:commandButton  id="dynaButton" value="Outras Ações" type="button" icon="fa fa-bars" />
+						 
+						 
+					     <p:menu overlay="true" trigger="dynaButton" my="left top" at="left bottom"  >
+
+								<p:submenu label="Exportar">	
+						           <p:menuitem>
+							           <h:commandLink styleClass="ui-menuitem-link" >
+										   <p:graphicImage name="/imagens/pdf.png" width="8%" style="float:left"/>
+										   <h:outputText value="Formato PDF" styleClass="ui-menuitem-text" />
+										   <p:dataExporter type="pdf" target=":cadFuncionario:idTableColaborador" fileName="rel" orientation="Landscape" encoding="ISO-8859-1" />
+						   			   </h:commandLink>
+						           </p:menuitem>
+						           
+						           <p:menuitem>
+							           <h:commandLink styleClass="ui-menuitem-link" >
+										   <p:graphicImage name="/imagens/excel.png" width="8%" style="float:left"/>
+										   <h:outputText value="Formato Excel" styleClass="ui-menuitem-text" />
+										   <p:dataExporter type="xls" target=":cadFuncionario:idTableColaborador" fileName="rel" />
+						   			   </h:commandLink>
+						           </p:menuitem>
+						           </p:submenu>
+						           
+						           
+					     </p:menu>  
+
+						
+					</f:facet>
+				</p:toolbar>
+		
+		
+		</h:form>
+
+
+
+
+
+
+		
+		<h:form id="confirmacao" >
+		    <p:confirmDialog    severity="alert" widgetVar="confirmation"  global="true" closeOnEscape="true" closable="false" >
+    	    	<center>
+    	    		<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" actionListener="#{funcionarioBean.excluir}" process="@form" update=":cadFuncionario:idTableColaborador, :cadFuncionario:messageGe"   > 
+    					<f:setPropertyActionListener  value="#{funcionarioJsf}" target="#{funcionarioBean.funcionario}"  />
+    				</p:commandButton>
+		        	<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no"    icon="ui-icon-close"/>
+		        </center>
+    		</p:confirmDialog>
+		</h:form>
+				
+		</p:dialog>
+		
+		
+			<p:dialog id="dlgIncluir" widgetVar="dlgIncluir" resizable="false" modal="true" draggable="false" header="Cadastro" location="center" closable="false"
+			          closeOnEscape="false" height="44%" width="44%"  showHeader="false" >
+			
+			<p:messages id="cadastro" showIcon="false" closable="true" globalOnly="false" ></p:messages> 
+
+		           <h:form  id="dlg"  onkeypress="if (event.keyCode == 13) { return false;}" >
+				
+					<p:fieldset >
+						<h:panelGrid  styleClass="semBorda" columns="2" id="panelDlg" >
+
+						<p:outputLabel value="Código" for="codigo" />
+						<h:panelGrid  columns="1" >
+								<p:inputText id="codigo" value="#{funcionarioBean.funcionario.codigoFuncionario}"   disabled="true"	maxlength="7" style="padding-right: 5px; float: right; width:45px " />
+							</h:panelGrid>
+
+							<p:outputLabel value="Nome" for="nome"/>
+							<h:panelGrid  columns="1" >
+								<p:inputText id="nome" value="#{funcionarioBean.funcionario.nome}" style="width:400px; text-transform: uppercase" maxlength="50" converter="toUpperCaseConverter"   />
+							</h:panelGrid>
+								
+							<p:outputLabel value="Cargo" for="cargo" />
+							<h:panelGrid   columns="1">
+								<p:inputText id="cargo" value="#{funcionarioBean.funcionario.cargo}" style="width:400px; text-transform: uppercase" maxlength="50"  		converter="toUpperCaseConverter"/>
+							</h:panelGrid>
+							
+							<p:outputLabel value="Salario" for="salario"  />
+							<h:panelGrid  columns="1" >
+								<p:inputText   id="salario" value="#{funcionarioBean.funcionario.salario}"  maxlength="8" style="width:100px;" >
+									<f:convertNumber pattern="#,##0.00" type="currency" minFractionDigits="2" />
+									<p:ajax event="blur" update="salario" ></p:ajax>
+								</p:inputText>
+							</h:panelGrid>
+			
+							<p:outputLabel value="CPF" for="cpf" id="labelCpf"/>
+							<h:panelGrid columns="1"   >
+								<p:inputMask mask="999-999-999/99" id="cpf" value="#{funcionarioBean.funcionario.cpf}"  maxlength="15" style="width:115px;" required="true" requiredMessage="Campo CPF é Obrigatório" >
+	    							<p:ajax event="blur" update="labelCpf, cpf, :cadastro"  listener="#{funcionarioBean.verificaCpf()}"   ></p:ajax>
+								</p:inputMask>		
+							</h:panelGrid>
+							
+							<p:outputLabel value="Telefone" for="tel" />
+							<h:panelGrid columns="1" >
+								<p:inputMask id="tel" value="#{funcionarioBean.funcionario.telefone}"  maxlength="14" style="width:110px"    mask="(**)*999-9999" />
+							</h:panelGrid>
+							
+							<h:panelGrid columns="1"  id="fim">
+									<h:inputHidden value="#{funcionarioBean.funcionario.codigoFuncionario}" />
+							</h:panelGrid>		
+								
+							
+						</h:panelGrid>
+					</p:fieldset>
+				<br />
+				<div align="center" id="conCan" >
+					<p:commandButton value="Confirmar" id="btnGrava" action="#{funcionarioBean.salvar}" update=":cadFuncionario, cpf, labelCpf,cadastro   "   icon="ui-icon-check" oncomplete="if (args &amp;&amp; !args.validationFailed) PF('dlgIncluir').hide();"    > 	
+					</p:commandButton> 
+	
+					<p:commandButton value="Cancelar" id="btnCancela" onclick="PF('dlgIncluir').hide();" icon="ui-icon-closethick"  immediate="true" ajax="true" update=":dlgIncluir" resetValues="true" process="@all"  >
+					</p:commandButton>
+					
+				</div>
+			</h:form>
+		           
+		           
+		        
+				
+    		
+		</p:dialog>
+		
+		
+		
+		<p:dialog widgetVar="statusDialog" modal="true"     draggable="false" 
+				  closable="false"         resizable="false" showHeader="false" >
+					<p:graphicImage  library="imagens" name="progresso.gif" />
+		</p:dialog>
+		
+	</ui:define>
+</ui:composition>
+</html>
