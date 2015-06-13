@@ -42,13 +42,13 @@ public class AlunoBean extends ActionBean {
 		}
 	}
 
-	
+
 	public void verificaMat(){
 		AlunoRN urn = new AlunoRN();
 		Aluno auxMat = urn.obterPorMatricula(aluno);
-		
+
 		if(auxMat !=null){
-			FacesUtil.exibirMensagemErro("Esta matricula já pertence a outro Aluno");
+			FacesUtil.exibirMensagemErro("Esta matricula jï¿½ pertence a outro Aluno");
 		}
 	}
 
@@ -56,7 +56,7 @@ public class AlunoBean extends ActionBean {
 		AlunoRN colRN = new AlunoRN();
 		aluno = colRN.obterPorId(aluno);
 	}
-	
+
 	public Aluno getAluno() {
 		return aluno;
 	}
@@ -80,7 +80,9 @@ public class AlunoBean extends ActionBean {
 	}
 
 
-	 
-	 
+
+	public void alunoSelecionadoDialog(Aluno alunoD) {
+		FacesUtil.closeDialog(alunoD);
+	}
 
 }

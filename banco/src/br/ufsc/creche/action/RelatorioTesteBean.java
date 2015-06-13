@@ -26,7 +26,7 @@ public class RelatorioTesteBean  extends ActionBean implements Serializable  {
 	public void PreparandoTela() {
 
 		TesteRelatorio c1 = new TesteRelatorio("Caju Jones","caju@gmail.com","1111-1111");
-		TesteRelatorio c2 = new TesteRelatorio("João Cana Brava","joao@gmail.com","2222-2222");
+		TesteRelatorio c2 = new TesteRelatorio("Joao Cana Brava","joao@gmail.com","2222-2222");
 		TesteRelatorio c3 = new TesteRelatorio("Francisco Garoto Super","franscisco@gmail.com","3333-3333");
 		TesteRelatorio c4 = new TesteRelatorio("Fabricio Grande Polegar","fabricio@gmail.com","4444-4444");
 		TesteRelatorio c5 = new TesteRelatorio("Iuri Martinho","iuri@gmail.com","5555-5555");
@@ -53,7 +53,7 @@ public class RelatorioTesteBean  extends ActionBean implements Serializable  {
 		String template = "RelatorioClientes.jrxml";
 
 		HashMap<String, Object> parametros = new HashMap<String, Object>();
-		parametros.put("title", "Relatório de Clientes" );
+		parametros.put("title", "Relatï¿½rio de Clientes" );
 
 		GeraRelatorioUtil a = new GeraRelatorioUtil();
 		try {

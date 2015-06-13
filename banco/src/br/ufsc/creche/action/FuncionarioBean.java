@@ -42,13 +42,13 @@ public class FuncionarioBean extends ActionBean {
 		}
 	}
 
-	
+
 	public void verificaCpf(){
 		FuncionarioRN urn = new FuncionarioRN();
 		Funcionario auxMat = urn.obterPorCpf(funcionario);
-		
+
 		if(auxMat !=null){
-			FacesUtil.exibirMensagemErro("Este cpf j· pertence a outro Funcionario");
+			FacesUtil.exibirMensagemErro("Este cpf j√° pertence a outro Funcionario");
 		}
 	}
 
@@ -56,7 +56,7 @@ public class FuncionarioBean extends ActionBean {
 		FuncionarioRN colRN = new FuncionarioRN();
 		funcionario = colRN.obterPorId(funcionario);
 	}
-	
+
 	public Funcionario getFuncionario() {
 		return funcionario;
 	}
@@ -80,7 +80,7 @@ public class FuncionarioBean extends ActionBean {
 	}
 
 
-	 
-	 
+
+
 
 }
