@@ -20,5 +20,8 @@
   <mapping class="br.ufsc.creche.model.Pagamento"/>
   <mapping class="br.ufsc.creche.model.Produto"/>
   <mapping class="br.ufsc.creche.model.Turma"/>
+  <mapping class="br.ufsc.creche.model.Atividade"/>
+  <mapping class="br.ufsc.creche.model.DatasComemorativa"/>
+  <mapping class="br.ufsc.creche.model.Matricula"/>
  </session-factory>
 </hibernate-configuration>

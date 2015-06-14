@@ -53,7 +53,7 @@ public class RelatorioTesteBean  extends ActionBean implements Serializable  {
 		String template = "RelatorioClientes.jrxml";
 
 		HashMap<String, Object> parametros = new HashMap<String, Object>();
-		parametros.put("title", "Relat�rio de Clientes" );
+		parametros.put("title", "Relatório de Clientes" );
 
 		GeraRelatorioUtil a = new GeraRelatorioUtil();
 		try {

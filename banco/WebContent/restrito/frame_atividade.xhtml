@@ -12,18 +12,18 @@
     <ui:define name="content">    
 
 		<p:dialog  appendToBody="true" closable="true" draggable="false"
-                  header="Cadastro de Turmas" maximizable="false" minimizable="false"
+                  header="Cadastro de Atividades" maximizable="false" minimizable="false"
                   resizable="false"   visible="true" 
                   position="center"     width="70%"  height="450"    
-                  closeOnEscape="true"  style="margin-top:0.5%" id="idDlgTurma" widgetVar="dlgTurma" 
+                  closeOnEscape="true"  style="margin-top:0.5%" id="idDlgAtividade" widgetVar="dlgAtividade" 
                   > 
 
-		<h:form id="cadTurma"  >
+		<h:form id="cadAtividade"  >
 				<p:messages id="messageGe"    closable="true" showIcon="false" globalOnly="true"/>
 
-				<p:dataTable value="#{turmaBean.lista}"
-					resizableColumns="true" draggableColumns="false" id="idTableTurma"
-					var="turmaJsf" rows="10" paginator="true" sortMode="multiple"
+				<p:dataTable value="#{atividadeBean.lista}"
+					resizableColumns="true" draggableColumns="false" id="idTableAtividade"
+					var="atividadeJsf" rows="10" paginator="true" sortMode="multiple"
 					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 					currentPageReportTemplate="Visualizando {startRecord} - {endRecord} de {totalRecords} -  Página: {currentPage}/{totalPages}"
 					paginatorPosition="bottom" emptyMessage="Não existe dados para a Consulta."
@@ -32,34 +32,45 @@
 					
 				 	<p:column headerText="Ações"   width="85"  id="acoes"  resizable="true" exportable="false"   >
 						<div align="center"  >
-								<p:commandButton action="#{turmaBean.obterPorId()}"  update=":dlgIncluir" resetValues="true"
+								<p:commandButton action="#{atividadeBean.obterPorId()}"  update=":dlgIncluir" resetValues="true"
 									icon="ui-icon-pencil"   title="Alterar" oncomplete="PF('dlgIncluir').show();">
-									<f:setPropertyActionListener value="#{turmaJsf}" target="#{turmaBean.turma}"  />
+									<f:setPropertyActionListener value="#{atividadeJsf}" target="#{atividadeBean.atividade}"  />
 									<f:ajax  update=":dlgIncluir:dlg:sit"  />
 								</p:commandButton>
 								
-								<p:commandButton  update=":confirmacao,:cadTurma:idTableTurma, :cadTurma:messageGe" icon="ui-icon-trash" title="Excluir"   
-									onclick="PF('confirmation').show();"  action="#{turmaBean.excluir()}"  id="btnExclui">
+								<p:commandButton  update=":confirmacao,:cadAtividade:idTableAtividade, :cadAtividade:messageGe" icon="ui-icon-trash" title="Excluir"   
+									onclick="PF('confirmation').show();"  action="#{atividadeBean.excluir()}"  id="btnExclui">
 									<p:confirm  icon="ui-icon-blank" message="Confirma a exclusão ?"   />
-									<f:setPropertyActionListener  value="#{turmaJsf}" target="#{turmaBean.turma}"  />
+									<f:setPropertyActionListener  value="#{atividadeJsf}" target="#{atividadeBean.atividade}"  />
 								</p:commandButton>
 								
-								<p:commandButton action="#{turmaBean.obterPorId()}"
+								<p:commandButton action="#{atividadeBean.obterPorId()}"
 									icon="ui-icon-search"   title="Visualizar"  update=":dlgIncluir" resetValues="true"
 									oncomplete="PF('dlgIncluir').show();"  >
-									<f:setPropertyActionListener value="#{turmaJsf}" target="#{turmaBean.turma}"  />
+									<f:setPropertyActionListener value="#{atividadeJsf}" target="#{atividadeBean.atividade}"  />
 								</p:commandButton>
 						</div>	
 					</p:column> 
 					
-					<p:column headerText="Código"  sortBy="#{turmaJsf.codigoTurma}"  >
-						<p:outputLabel value="#{turmaJsf.codigoTurma}" />
+					<p:column headerText="Código"  sortBy="#{atividadeJsf.codigoAtividade}"  >
+						<p:outputLabel value="#{atividadeJsf.codigoAtividade}" />
 					</p:column>
 					
-					<p:column headerText="Nome"  filterMatchMode="contains" filterBy="#{turmaJsf.descricao}"  >
-						<p:outputLabel value="#{turmaJsf.descricao}" />
+					<p:column headerText="Nome"  filterMatchMode="contains" filterBy="#{atividadeJsf.descricao}"  >
+						<p:outputLabel value="#{atividadeJsf.descricao}" />
 					</p:column>
 					
+					
+					<p:column headerText="Data"  >
+						<p:outputLabel value="#{atividadeJsf.data}" >
+						<f:convertDateTime pattern="dd/MM/yyyy"/>
+						</p:outputLabel>
+					</p:column>
+					
+					
+					<p:column headerText="Horario"   >
+						<p:outputLabel value="#{atividadeJsf.horario}" />
+					</p:column>
 					
  				 
  			</p:dataTable>
@@ -71,7 +82,7 @@
 		
 		<p:toolbar>
 					<f:facet name="left"  >
-						<p:commandButton value="Incluir"  icon="ui-icon-plusthick" 	action="#{turmaBean.novo}" oncomplete="PF('dlgIncluir').show();" 
+						<p:commandButton value="Incluir"  icon="ui-icon-plusthick" 	action="#{atividadeBean.novo}" oncomplete="PF('dlgIncluir').show();" 
 						update=":dlgIncluir" >
 						</p:commandButton>
 					</f:facet>
@@ -88,7 +99,7 @@
 							           <h:commandLink styleClass="ui-menuitem-link" >
 										   <p:graphicImage name="/imagens/pdf.png" width="8%" style="float:left"/>
 										   <h:outputText value="Formato PDF" styleClass="ui-menuitem-text" />
-										   <p:dataExporter type="pdf" target=":cadTurma:idTableTurma" fileName="relatorioPdf" orientation="Landscape" encoding="ISO-8859-1" />
+										   <p:dataExporter type="pdf" target=":cadAtividade:idTableAtividade" fileName="relatorioPdf" orientation="Landscape" encoding="ISO-8859-1" />
 						   			   </h:commandLink>
 						           </p:menuitem>
 						           
@@ -96,7 +107,7 @@
 							           <h:commandLink styleClass="ui-menuitem-link" >
 										   <p:graphicImage name="/imagens/excel.png" width="8%" style="float:left"/>
 										   <h:outputText value="Formato Excel" styleClass="ui-menuitem-text" />
-										   <p:dataExporter type="xls" target=":cadTurma:idTableTurma" fileName="relatorioExcel" />
+										   <p:dataExporter type="xls" target=":cadAtividade:idTableAtividade" fileName="relatorioExcel" />
 						   			   </h:commandLink>
 						           </p:menuitem>
 						           </p:submenu>
@@ -120,8 +131,8 @@
 		<h:form id="confirmacao" >
 		    <p:confirmDialog    severity="alert" widgetVar="confirmation"  global="true" closeOnEscape="true" closable="false" >
     	    	<center>
-    	    		<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" actionListener="#{turmaBean.excluir}" process="@form" update=":cadTurma:idTableTurma, :cadTurma:messageGe"   > 
-    					<f:setPropertyActionListener  value="#{turmaJsf}" target="#{turmaBean.turma}"  />
+    	    		<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" actionListener="#{atividadeBean.excluir}" process="@form" update=":cadAtividade:idTableAtividade, :cadAtividade:messageGe"   > 
+    					<f:setPropertyActionListener  value="#{atividadeJsf}" target="#{atividadeBean.atividade}"  />
     				</p:commandButton>
 		        	<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no"    icon="ui-icon-close"/>
 		        </center>
@@ -143,32 +154,28 @@
 
 						<p:outputLabel value="Código" for="codigo" />
 						<h:panelGrid  columns="1" >
-								<p:inputText id="codigo" value="#{turmaBean.turma.codigoTurma}"   disabled="true"	maxlength="7" style="padding-right: 5px; float: right; width:45px " />
+								<p:inputText id="codigo" value="#{atividadeBean.atividade.codigoAtividade}"   disabled="true"	maxlength="7" style="padding-right: 5px; float: right; width:45px " />
 							</h:panelGrid>
 
 							<p:outputLabel value="Nome" for="nome"/>
 							<h:panelGrid  columns="1" >
-								<p:inputText id="nome" value="#{turmaBean.turma.descricao}" style="width:400px; text-transform: uppercase" maxlength="50" converter="toUpperCaseConverter"   />
+								<p:inputText id="nome" value="#{atividadeBean.atividade.descricao}" style="width:400px; text-transform: uppercase" maxlength="50" converter="toUpperCaseConverter"   />
 							</h:panelGrid>
-								
 							
-							<p:outputLabel for="funcionario" value="Funcionario" id="lbFuncionario" />
-							<h:panelGrid  columns="3" >
-							<p:inputText id="funcionario"   maxlength="6" size="3" value="#{turmaBean.funcionarioPesquisa.codigoFuncionario}" required="true"  requiredMessage="Campo Funcionario é Obrigatório" onkeypress="return somenteNumero(event)"    >
-								<p:ajax event="change" update="funcionario, nomeFuncionario" listener="#{turmaBean.buscaFuncionario()}"    />
- 							</p:inputText>
- 							
-							<p:inputText id="nomeFuncionario" value="#{turmaBean.funcionarioPesquisa.nome}"    readonly="true"  style="width:230px" />
+							<p:outputLabel value="Data" for="data"  />
+							<h:panelGrid columns="1"  >
+								<p:calendar id="data" value="#{atividadeBean.atividade.data}" size="13" pattern="dd-MM-yyyy" mask="true"  locale="pt"  required="true"  requiredMessage="Campo Data Obrigatório" />
+							</h:panelGrid>
 							
-							<p:commandButton value="..."    id="botaoConsulta"  actionListener="#{turmaBean.escolhaDeFuncionario()}" immediate="true"   >
-								<p:ajax event="dialogReturn" listener="#{turmaBean.retornoFuncionarioSelecionado}"   update="funcionario, nomeFuncionario"  />
-							</p:commandButton>
-							<p:message for="funcionario" display="icon" severity="info" />	
-							</h:panelGrid>	
-								
+							
+							<p:outputLabel value="Horario" for="hora" />
+							<h:panelGrid  columns="1" >
+								<p:inputMask  mask="99:99" id="hora" value="#{atividadeBean.atividade.horario}" style="width:50px; " maxlength="5"  required="true" requiredMessage="Campo Horario Obrigatório"  />
+							</h:panelGrid>
+							
 								
 							<h:panelGrid columns="1"  id="fim">
-									<h:inputHidden value="#{turmaBean.turma.codigoTurma}" />
+									<h:inputHidden value="#{atividadeBean.atividade.codigoAtividade}" />
 							</h:panelGrid>		
 								
 							
@@ -176,7 +183,7 @@
 					</p:fieldset>
 				<br />
 				<div align="center" id="conCan" >
-					<p:commandButton value="Confirmar" id="btnGrava" action="#{turmaBean.salvar}" update=":cadTurma,  cadastro   "   icon="ui-icon-check" oncomplete="if (args &amp;&amp; !args.validationFailed) PF('dlgIncluir').hide();"    > 	
+					<p:commandButton value="Confirmar" id="btnGrava" action="#{atividadeBean.salvar}" update=":cadAtividade,  cadastro   "   icon="ui-icon-check" oncomplete="if (args &amp;&amp; !args.validationFailed) PF('dlgIncluir').hide();"    > 	
 					</p:commandButton> 
 	
 					<p:commandButton value="Cancelar" id="btnCancela" onclick="PF('dlgIncluir').hide();" icon="ui-icon-closethick"  immediate="true" ajax="true" update=":dlgIncluir" resetValues="true" process="@all"  >

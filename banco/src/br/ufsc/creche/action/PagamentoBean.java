@@ -170,8 +170,6 @@ public class PagamentoBean extends ActionBean {
 			listaReceberAluno = null;
 			getListaReceberAluno();
 		}
-
-
 	}
 
 

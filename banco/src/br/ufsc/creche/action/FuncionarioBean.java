@@ -82,5 +82,12 @@ public class FuncionarioBean extends ActionBean {
 
 
 
+	public void funcionarioSelecionadoDialog(Funcionario f) {
+		FacesUtil.closeDialog(f);
+	}
+
+
+
+
 
 }

@@ -12,18 +12,18 @@
     <ui:define name="content">    
 
 		<p:dialog  appendToBody="true" closable="true" draggable="false"
-                  header="Cadastro de Turmas" maximizable="false" minimizable="false"
+                  header="Matricula" maximizable="false" minimizable="false"
                   resizable="false"   visible="true" 
                   position="center"     width="70%"  height="450"    
-                  closeOnEscape="true"  style="margin-top:0.5%" id="idDlgTurma" widgetVar="dlgTurma" 
+                  closeOnEscape="true"  style="margin-top:0.5%" id="idDlgMatricula" widgetVar="dlgMatricula" 
                   > 
 
-		<h:form id="cadTurma"  >
-				<p:messages id="messageGe"    closable="true" showIcon="false" globalOnly="true"/>
+		<h:form id="cadMatricula"  >
+				<p:messages id="messageGe"    closable="true" showIcon="false"  globalOnly="true" />
 
-				<p:dataTable value="#{turmaBean.lista}"
-					resizableColumns="true" draggableColumns="false" id="idTableTurma"
-					var="turmaJsf" rows="10" paginator="true" sortMode="multiple"
+				<p:dataTable value="#{matriculaBean.lista}"
+					resizableColumns="true" draggableColumns="false" id="idTableMatricula"
+					var="matriculaJsf" rows="10" paginator="true" sortMode="multiple"
 					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 					currentPageReportTemplate="Visualizando {startRecord} - {endRecord} de {totalRecords} -  Página: {currentPage}/{totalPages}"
 					paginatorPosition="bottom" emptyMessage="Não existe dados para a Consulta."
@@ -32,32 +32,33 @@
 					
 				 	<p:column headerText="Ações"   width="85"  id="acoes"  resizable="true" exportable="false"   >
 						<div align="center"  >
-								<p:commandButton action="#{turmaBean.obterPorId()}"  update=":dlgIncluir" resetValues="true"
-									icon="ui-icon-pencil"   title="Alterar" oncomplete="PF('dlgIncluir').show();">
-									<f:setPropertyActionListener value="#{turmaJsf}" target="#{turmaBean.turma}"  />
-									<f:ajax  update=":dlgIncluir:dlg:sit"  />
+																
+								<p:commandButton  update=":confirmacao,:cadMatricula:idTableMatricula, :cadMatricula:messageGe" icon="ui-icon-trash" title="Excluir"   
+									onclick="PF('confirmation').show();"  action="#{matriculaBean.excluir()}"  id="btnExclui">
+									<p:confirm  icon="ui-icon-blank" message="Confirma o cancelamento da Matricula ?"   />
+									<f:setPropertyActionListener  value="#{matriculaJsf}" target="#{matriculaBean.matricula}"  />
 								</p:commandButton>
 								
-								<p:commandButton  update=":confirmacao,:cadTurma:idTableTurma, :cadTurma:messageGe" icon="ui-icon-trash" title="Excluir"   
-									onclick="PF('confirmation').show();"  action="#{turmaBean.excluir()}"  id="btnExclui">
-									<p:confirm  icon="ui-icon-blank" message="Confirma a exclusão ?"   />
-									<f:setPropertyActionListener  value="#{turmaJsf}" target="#{turmaBean.turma}"  />
-								</p:commandButton>
 								
-								<p:commandButton action="#{turmaBean.obterPorId()}"
-									icon="ui-icon-search"   title="Visualizar"  update=":dlgIncluir" resetValues="true"
-									oncomplete="PF('dlgIncluir').show();"  >
-									<f:setPropertyActionListener value="#{turmaJsf}" target="#{turmaBean.turma}"  />
-								</p:commandButton>
 						</div>	
 					</p:column> 
 					
-					<p:column headerText="Código"  sortBy="#{turmaJsf.codigoTurma}"  >
-						<p:outputLabel value="#{turmaJsf.codigoTurma}" />
+					
+					
+					<p:column headerText="Turma"  sortBy="#{matriculaJsf.id.turma.codigoTurma}"  >
+						<p:outputLabel value="#{matriculaJsf.id.turma.codigoTurma}" />
 					</p:column>
 					
-					<p:column headerText="Nome"  filterMatchMode="contains" filterBy="#{turmaJsf.descricao}"  >
-						<p:outputLabel value="#{turmaJsf.descricao}" />
+					<p:column headerText="Descrição"  filterMatchMode="contains" filterBy="#{matriculaJsf.nomeTurma}"  >
+						<p:outputLabel value="#{matriculaJsf.nomeTurma}" />
+					</p:column>
+	
+					<p:column headerText="Aluno"  sortBy="#{matriculaJsf.id.aluno.codigoAluno}"  >
+						<p:outputLabel value="#{matriculaJsf.id.aluno.codigoAluno}" />
+					</p:column>
+					
+					<p:column headerText="Nome"  filterMatchMode="contains" filterBy="#{matriculaJsf.nomeAluno}"  >
+						<p:outputLabel value="#{matriculaJsf.nomeAluno}" />
 					</p:column>
 					
 					
@@ -71,7 +72,7 @@
 		
 		<p:toolbar>
 					<f:facet name="left"  >
-						<p:commandButton value="Incluir"  icon="ui-icon-plusthick" 	action="#{turmaBean.novo}" oncomplete="PF('dlgIncluir').show();" 
+						<p:commandButton value="Incluir"  icon="ui-icon-plusthick" 	action="#{matriculaBean.novo}" oncomplete="PF('dlgIncluir').show();" 
 						update=":dlgIncluir" >
 						</p:commandButton>
 					</f:facet>
@@ -88,7 +89,7 @@
 							           <h:commandLink styleClass="ui-menuitem-link" >
 										   <p:graphicImage name="/imagens/pdf.png" width="8%" style="float:left"/>
 										   <h:outputText value="Formato PDF" styleClass="ui-menuitem-text" />
-										   <p:dataExporter type="pdf" target=":cadTurma:idTableTurma" fileName="relatorioPdf" orientation="Landscape" encoding="ISO-8859-1" />
+										   <p:dataExporter type="pdf" target=":cadMatricula:idTableMatricula" fileName="relatorioPdf" orientation="Landscape" encoding="ISO-8859-1" />
 						   			   </h:commandLink>
 						           </p:menuitem>
 						           
@@ -96,7 +97,7 @@
 							           <h:commandLink styleClass="ui-menuitem-link" >
 										   <p:graphicImage name="/imagens/excel.png" width="8%" style="float:left"/>
 										   <h:outputText value="Formato Excel" styleClass="ui-menuitem-text" />
-										   <p:dataExporter type="xls" target=":cadTurma:idTableTurma" fileName="relatorioExcel" />
+										   <p:dataExporter type="xls" target=":cadMatricula:idTableMatricula" fileName="relatorioExcel" />
 						   			   </h:commandLink>
 						           </p:menuitem>
 						           </p:submenu>
@@ -120,8 +121,8 @@
 		<h:form id="confirmacao" >
 		    <p:confirmDialog    severity="alert" widgetVar="confirmation"  global="true" closeOnEscape="true" closable="false" >
     	    	<center>
-    	    		<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" actionListener="#{turmaBean.excluir}" process="@form" update=":cadTurma:idTableTurma, :cadTurma:messageGe"   > 
-    					<f:setPropertyActionListener  value="#{turmaJsf}" target="#{turmaBean.turma}"  />
+    	    		<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" actionListener="#{matriculaBean.excluir}" process="@form" update=":cadMatricula:idTableMatricula, :cadMatricula:messageGe"   > 
+    					<f:setPropertyActionListener  value="#{matriculaJsf}" target="#{matriculaBean.matricula}"  />
     				</p:commandButton>
 		        	<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no"    icon="ui-icon-close"/>
 		        </center>
@@ -141,42 +142,42 @@
 					<p:fieldset >
 						<h:panelGrid  styleClass="semBorda" columns="2" id="panelDlg" >
 
-						<p:outputLabel value="Código" for="codigo" />
-						<h:panelGrid  columns="1" >
-								<p:inputText id="codigo" value="#{turmaBean.turma.codigoTurma}"   disabled="true"	maxlength="7" style="padding-right: 5px; float: right; width:45px " />
-							</h:panelGrid>
-
-							<p:outputLabel value="Nome" for="nome"/>
-							<h:panelGrid  columns="1" >
-								<p:inputText id="nome" value="#{turmaBean.turma.descricao}" style="width:400px; text-transform: uppercase" maxlength="50" converter="toUpperCaseConverter"   />
-							</h:panelGrid>
-								
-							
-							<p:outputLabel for="funcionario" value="Funcionario" id="lbFuncionario" />
-							<h:panelGrid  columns="3" >
-							<p:inputText id="funcionario"   maxlength="6" size="3" value="#{turmaBean.funcionarioPesquisa.codigoFuncionario}" required="true"  requiredMessage="Campo Funcionario é Obrigatório" onkeypress="return somenteNumero(event)"    >
-								<p:ajax event="change" update="funcionario, nomeFuncionario" listener="#{turmaBean.buscaFuncionario()}"    />
+			 			<p:outputLabel for="turma " value="Turma" id="lbTurma" />
+						<h:panelGrid  columns="3" >
+							<p:inputText id="turma"   maxlength="6" size="3" value="#{matriculaBean.turma.codigoTurma}" required="true"  requiredMessage="Campo Turma é Obrigatório" onkeypress="return somenteNumero(event)"    >
+								<p:ajax event="change" update="turma, nomeTurma" listener="#{matriculaBean.buscaTurma()}"    />
  							</p:inputText>
  							
-							<p:inputText id="nomeFuncionario" value="#{turmaBean.funcionarioPesquisa.nome}"    readonly="true"  style="width:230px" />
+							<p:inputText id="nomeTurma" value="#{matriculaBean.turma.descricao}"    readonly="true"  style="width:230px" />
 							
-							<p:commandButton value="..."    id="botaoConsulta"  actionListener="#{turmaBean.escolhaDeFuncionario()}" immediate="true"   >
-								<p:ajax event="dialogReturn" listener="#{turmaBean.retornoFuncionarioSelecionado}"   update="funcionario, nomeFuncionario"  />
+							<p:commandButton value="..."    id="botaoConsultaTurma"  actionListener="#{matriculaBean.escolhaDeTurma()}" immediate="true"   >
+								<p:ajax event="dialogReturn" listener="#{matriculaBean.retornoTurmaSelecionado}"   update="turma, nomeTurma"  />
 							</p:commandButton>
-							<p:message for="funcionario" display="icon" severity="info" />	
-							</h:panelGrid>	
-								
-								
-							<h:panelGrid columns="1"  id="fim">
-									<h:inputHidden value="#{turmaBean.turma.codigoTurma}" />
-							</h:panelGrid>		
+							<p:message for="turma" display="icon" severity="info" />	
+						</h:panelGrid>
+			 								
+			 	 		
+			 	 		<p:outputLabel for="aluno" value="Aluno" id="lbAluno" />
+						<h:panelGrid  columns="3" >
+							<p:inputText id="aluno"   maxlength="6" size="3" value="#{matriculaBean.aluno.codigoAluno}" required="true"  requiredMessage="Campo Aluno é Obrigatório" onkeypress="return somenteNumero(event)"    >
+								<p:ajax event="change" update="aluno, nomeAluno, cadastro" listener="#{matriculaBean.buscaAluno()}"    />
+ 							</p:inputText>
+ 							
+							<p:inputText id="nomeAluno" value="#{matriculaBean.aluno.nome}"    readonly="true"  style="width:230px" />
+							
+							<p:commandButton value="..."    id="botaoConsulta"  actionListener="#{matriculaBean.escolhaDeAluno()}" immediate="true"   >
+								<p:ajax event="dialogReturn" listener="#{matriculaBean.retornoAlunoSelecionado}"   update="aluno, nomeAluno, cadastro"  />
+							</p:commandButton>
+							<p:message for="aluno" display="icon" severity="info" />	
+						</h:panelGrid>
+			 	 			
 								
 							
 						</h:panelGrid>
 					</p:fieldset>
 				<br />
 				<div align="center" id="conCan" >
-					<p:commandButton value="Confirmar" id="btnGrava" action="#{turmaBean.salvar}" update=":cadTurma,  cadastro   "   icon="ui-icon-check" oncomplete="if (args &amp;&amp; !args.validationFailed) PF('dlgIncluir').hide();"    > 	
+					<p:commandButton value="Confirmar" id="btnGrava" action="#{matriculaBean.salvar}" update=":cadMatricula"   icon="ui-icon-check" oncomplete="if (args &amp;&amp; !args.validationFailed) PF('dlgIncluir').hide();"    > 	
 					</p:commandButton> 
 	
 					<p:commandButton value="Cancelar" id="btnCancela" onclick="PF('dlgIncluir').hide();" icon="ui-icon-closethick"  immediate="true" ajax="true" update=":dlgIncluir" resetValues="true" process="@all"  >
