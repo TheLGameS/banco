@@ -48,7 +48,7 @@ public class AlunoBean extends ActionBean {
 		Aluno auxMat = urn.obterPorMatricula(aluno);
 
 		if(auxMat !=null){
-			FacesUtil.exibirMensagemErro("Esta matricula j� pertence a outro Aluno");
+			FacesUtil.exibirMensagemErro("Esta matricula ja pertence a outro Aluno");
 		}
 	}
 
