@@ -14,7 +14,6 @@
   <property name="hibernate.c3p0.timeout">300</property>
   <property name="hibernate.c3p0.max_statements">50</property>
   <property name="current_session_context_class">thread</property>
-  <mapping class="br.ufsc.creche.model.Usuario"/>
   <mapping class="br.ufsc.creche.model.Aluno"/>
   <mapping class="br.ufsc.creche.model.ContasReceber"/>
   <mapping class="br.ufsc.creche.model.Funcionario"/>

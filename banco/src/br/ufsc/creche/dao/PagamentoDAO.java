@@ -2,13 +2,8 @@ package br.ufsc.creche.dao;
 
 import java.util.List;
 
-import org.hibernate.Criteria;
-import org.hibernate.Query;
-import org.hibernate.criterion.Restrictions;
-
 import br.ufsc.creche.model.Pagamento;
 import br.ufsc.creche.util.DAOException;
-import br.ufsc.creche.util.Diversos;
 
 
 public class PagamentoDAO extends DAO<Pagamento> {
@@ -16,8 +11,8 @@ public class PagamentoDAO extends DAO<Pagamento> {
 	@Override
 	public void salvar(Pagamento model) throws DAOException {
 		try {
-			sessao.saveOrUpdate(model);
-			sessao.flush();
+			sessao.save(model);
+			//			sessao.flush();
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new DAOException(e);
@@ -37,7 +32,7 @@ public class PagamentoDAO extends DAO<Pagamento> {
 
 	@Override
 	public Pagamento obterPorId(Pagamento filtro) {
-		Pagamento col = (Pagamento) sessao.get(Pagamento.class, filtro.getCodigoAluno());
+		Pagamento col = (Pagamento) sessao.get(Pagamento.class, filtro.getAluno());
 		if(col!=null) {
 			sessao.setReadOnly(col, true);
 		}
@@ -49,5 +44,5 @@ public class PagamentoDAO extends DAO<Pagamento> {
 	public List<Pagamento> pesquisar(Pagamento filtros) {
 		return sessao.createCriteria(Pagamento.class).list();
 	}
-	   
+
 }

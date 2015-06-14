@@ -48,7 +48,7 @@ public class ContasReceberBean extends ActionBean {
 			AlunoRN alunoService = new AlunoRN();
 			alunoPesquisa = alunoService.obterPorId(alunoPesquisa);
 			contasReceber.setObservacao(alunoPesquisa.getNome());
-			contasReceber.setCodigoAluno(alunoPesquisa);
+			contasReceber.setAluno(alunoPesquisa);
 			urn.salvar(contasReceber);
 		} catch (RNException e) {
 			FacesUtil.exibirMensagemErro("Erro ao tentar Salvar ContasReceber");
@@ -60,7 +60,7 @@ public class ContasReceberBean extends ActionBean {
 		contasReceber = colRN.obterPorId(contasReceber);
 
 		AlunoRN alunoService = new AlunoRN();
-		alunoPesquisa = alunoService.obterPorId(contasReceber.getCodigoAluno());
+		alunoPesquisa = alunoService.obterPorId(contasReceber.getAluno());
 
 
 	}
@@ -109,7 +109,7 @@ public class ContasReceberBean extends ActionBean {
 	public void retornoAlunoSelecionado(SelectEvent event) {
 		if(event.getObject()!=null){
 			Aluno al = (Aluno) event.getObject();
-			contasReceber.setCodigoAluno(al);
+			contasReceber.setAluno(al);
 			alunoPesquisa = al;
 		}
 	}

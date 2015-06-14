@@ -2,8 +2,8 @@ package br.ufsc.creche.negocio;
 
 import java.util.List;
 
-import br.ufsc.creche.dao.AlunoDAO;
 import br.ufsc.creche.dao.ContasReceberDAO;
+import br.ufsc.creche.model.Aluno;
 import br.ufsc.creche.model.ContasReceber;
 import br.ufsc.creche.util.DAOException;
 import br.ufsc.creche.util.RNException;
@@ -13,7 +13,7 @@ public class ContasReceberRN  extends RN<ContasReceber>{
 	public ContasReceberRN() {
 		super(new ContasReceberDAO());
 	}
-	
+
 	@Override
 	public void salvar(ContasReceber model) throws RNException {
 		try {
@@ -42,11 +42,11 @@ public class ContasReceberRN  extends RN<ContasReceber>{
 	public List<ContasReceber> pesquisar(ContasReceber filtros) {
 		return dao.pesquisar(filtros);
 	}
-	
-	public List<ContasReceber> listaContasReceberPorAluno(ContasReceber filtros) {
+
+	public List<ContasReceber> listaContasReceberPorAluno(Aluno filtros) {
 		return ((ContasReceberDAO) dao).listaContasReceberPorAluno(filtros);
 	}
-	
-	
+
+
 
 }

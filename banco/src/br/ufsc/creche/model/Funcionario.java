@@ -23,15 +23,15 @@ public class Funcionario implements Serializable {
 	private String cargo;
 	private String telefone;
 	private BigDecimal salario;
-	
+
 
 	public Funcionario() {
 
 	}
 
-	@Id  
-    @GeneratedValue(generator="seq_funcionario") 
-    @Column(name="cd_funcionario", unique=true, nullable=false)
+	@Id
+	@GeneratedValue(generator="seq_funcionario")
+	@Column(name="cd_funcionario", unique=true, nullable=false)
 	public Integer getCodigoFuncionario() {
 		return codigoFuncionario;
 	}
@@ -51,7 +51,7 @@ public class Funcionario implements Serializable {
 		this.nome = nome;
 	}
 
-	@Column(name = "cpf", length = 11, unique=true)
+	@Column(name = "cpf", length = 14, unique=true)
 	public String getCpf() {
 		return cpf;
 	}
@@ -71,7 +71,7 @@ public class Funcionario implements Serializable {
 		this.cargo = cargo;
 	}
 
-	@Column(name = "telefone", length = 11)
+	@Column(name = "telefone", length = 13)
 	public String getTelefone() {
 		return telefone;
 	}
@@ -81,7 +81,7 @@ public class Funcionario implements Serializable {
 		this.telefone = telefone;
 	}
 
-	@Column(name = "salario", nullable = false, precision = 14)
+	@Column(name = "salario", nullable = false, precision = 12, scale=2	)
 	public BigDecimal getSalario() {
 		return salario;
 	}

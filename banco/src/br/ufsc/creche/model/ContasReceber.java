@@ -25,14 +25,15 @@ public class ContasReceber implements Serializable {
 
 	private Integer codigoContasReceber;
 	private Date dataVencimento;
+	private Date dataPagamento;
 	private BigDecimal valor;
 	private Aluno aluno;
 	private String observacao;
 
-	
-	@Id  
-    @GeneratedValue(generator="seq_contas_receber") 
-    @Column(name="cd_contas_receber", unique=true, nullable=false)
+
+	@Id
+	@GeneratedValue(generator="seq_contas_receber")
+	@Column(name="cd_contas_receber", unique=true, nullable=false)
 	public Integer getCodigoContasReceber() {
 		return codigoContasReceber;
 	}
@@ -51,7 +52,7 @@ public class ContasReceber implements Serializable {
 		this.dataVencimento = dataVencimento;
 	}
 
-	@Column(name = "valor", nullable = false, precision = 14)
+	@Column(name = "valor", nullable = false, precision = 12, scale=2)
 	public BigDecimal getValor() {
 		return valor;
 	}
@@ -62,11 +63,11 @@ public class ContasReceber implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY )
 	@JoinColumn(name = "cd_aluno", nullable = false)
-	public Aluno getCodigoAluno() {
+	public Aluno getAluno() {
 		return this.aluno;
 	}
 
-	public void setCodigoAluno(Aluno codigoAluno) {
+	public void setAluno(Aluno codigoAluno) {
 		this.aluno = codigoAluno;
 	}
 
@@ -82,4 +83,16 @@ public class ContasReceber implements Serializable {
 	public ContasReceber() {
 
 	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "data_pagamento", length = 10)
+	public Date getDataPagamento() {
+		return dataPagamento;
+	}
+
+	public void setDataPagamento(Date dataPagamento) {
+		this.dataPagamento = dataPagamento;
+	}
+
+
 }

@@ -30,15 +30,15 @@ public class Pagamento implements Serializable {
 	private BigDecimal valorBruto;
 	private Aluno aluno;
 	private ContasReceber contasReceber;
-	
-	
+
+
 	public Pagamento() {
 
 	}
 
-	@Id  
-    @GeneratedValue(generator="seq_pagamento") 
-    @Column(name="cd_pagamento", unique=true, nullable=false)
+	@Id
+	@GeneratedValue(generator="seq_pagamento")
+	@Column(name="cd_pagamento", unique=true, nullable=false)
 	public Integer getCodigoPagamento() {
 		return codigoPagamento;
 	}
@@ -92,23 +92,23 @@ public class Pagamento implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cd_aluno", nullable = false)
-	public Aluno getCodigoAluno() {
+	public Aluno getAluno() {
 		return this.aluno;
 	}
 
-	public void setCodigoAluno(Aluno codigoAluno) {
+	public void setAluno(Aluno codigoAluno) {
 		this.aluno = codigoAluno;
 	}
 
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cd_contas_receber", nullable = false)
-	public ContasReceber getCodigoContasReceber() {
+	public ContasReceber getContasReceber() {
 		return this.contasReceber;
 	}
 
 
-	public void setCodigoContasReceber(ContasReceber codigoContasReceber) {
+	public void setContasReceber(ContasReceber codigoContasReceber) {
 		this.contasReceber = codigoContasReceber;
 	}
 }
