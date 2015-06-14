@@ -23,5 +23,7 @@
   <mapping class="br.ufsc.creche.model.Atividade"/>
   <mapping class="br.ufsc.creche.model.DatasComemorativa"/>
   <mapping class="br.ufsc.creche.model.Matricula"/>
+  <mapping class="br.ufsc.creche.model.Cardapio"/>
+  <mapping class="br.ufsc.creche.model.CardapioProduto"/>
  </session-factory>
 </hibernate-configuration>

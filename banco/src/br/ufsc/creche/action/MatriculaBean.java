@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
 
 import org.primefaces.event.SelectEvent;
 
@@ -21,7 +21,7 @@ import br.ufsc.creche.util.RNException;
 
 
 @ManagedBean
-@ViewScoped
+@RequestScoped
 public class MatriculaBean extends ActionBean {
 
 	private Matricula matricula = new Matricula();
@@ -138,7 +138,6 @@ public class MatriculaBean extends ActionBean {
 		if(event.getObject()!=null){
 			Aluno al = (Aluno) event.getObject();
 			aluno = al;
-			obterPorId();
 		}
 	}
 
@@ -151,7 +150,6 @@ public class MatriculaBean extends ActionBean {
 			aluno = new Aluno();
 		}
 
-		obterPorId();
 
 	}
 

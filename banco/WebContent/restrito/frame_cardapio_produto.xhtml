@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	>
+	
+<ui:composition template="/templates/main.xhtml">
+    <ui:define name="content">    
+
+		<p:dialog  appendToBody="true" closable="true" draggable="false"
+                  header="Dieta do Cardápio" maximizable="false" minimizable="false"
+                  resizable="false"   visible="true" 
+                  position="center"     width="70%"  height="450"    
+                  closeOnEscape="true"  style="margin-top:0.5%" id="idDlgDieta" widgetVar="dlgDieta" 
+                  > 
+
+		<h:form id="cadDieta"  >
+				<p:messages id="messageGe"    closable="true" showIcon="false" globalOnly="true"/>
+
+
+				<p:outputLabel for="cardapio" value="Cardapio" id="lbCardapio" />
+					<h:panelGrid  columns="3" >
+						<p:inputText id="cardapio"   maxlength="6" size="3" value="#{cardapioProdutoBean.cardapio.codigoCardapio}"  onkeypress="return somenteNumero(event)"    >
+							<p:ajax event="change" update="cardapio, nomeCardapio, idTableDieta" listener="#{cardapioProdutoBean.buscaCardapio()}"    />
+ 						</p:inputText>
+ 						
+						<p:inputText id="nomeCardapio" value="#{cardapioProdutoBean.cardapio.descricao}"    readonly="true"  style="width:230px" />
+						
+						<p:commandButton value="..."    id="botaoConsultaCardapio"  actionListener="#{cardapioProdutoBean.escolhaDeCardapio()}" immediate="true"   >
+							<p:ajax event="dialogReturn" listener="#{cardapioProdutoBean.retornoCardapioSelecionado}"   update="cardapio, nomeCardapio, idTableDieta"  />
+						</p:commandButton>
+						<p:message for="cardapio" display="icon" severity="info" />	
+					</h:panelGrid>
+
+
+				<p:dataTable value="#{cardapioProdutoBean.lista}"
+					resizableColumns="true" draggableColumns="false" id="idTableDieta"
+					var="dietaJsf" rows="10" paginator="true" sortMode="multiple"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					currentPageReportTemplate="Visualizando {startRecord} - {endRecord} de {totalRecords} -  Página: {currentPage}/{totalPages}"
+					paginatorPosition="bottom" emptyMessage="Não existe dados para a Consulta."
+					scrollable="false"     liveResize="true"    styleClass=".ui-datatable-hor-scroll" tableStyle="table-layout:auto;width:100%;"  
+					>
+					
+				 	<p:column headerText="Ações"   width="85"  id="acoes"  resizable="true" exportable="false"   >
+						<div align="center"  >
+								<p:commandButton action="#{cardapioProdutoBean.obterPorId()}"  update=":dlgIncluir" resetValues="true"
+									icon="ui-icon-pencil"   title="Alterar" oncomplete="PF('dlgIncluir').show();">
+									<f:setPropertyActionListener value="#{dietaJsf}" target="#{cardapioProdutoBean.cardapioProduto}"  />
+									<f:ajax  update=":dlgIncluir:dlg:sit"  />
+								</p:commandButton>
+								
+								<p:commandButton  update=":confirmacao,:cadDieta:idTableDieta, :cadDieta:messageGe" icon="ui-icon-trash" title="Excluir"   
+									onclick="PF('confirmation').show();"  action="#{cardapioProdutoBean.excluir()}"  id="btnExclui">
+									<p:confirm  icon="ui-icon-blank" message="Confirma a exclusão ?"   />
+									<f:setPropertyActionListener  value="#{dietaJsf}" target="#{cardapioProdutoBean.cardapioProduto}"  />
+								</p:commandButton>
+								
+								<p:commandButton action="#{cardapioProdutoBean.obterPorId()}"
+									icon="ui-icon-search"   title="Visualizar"  update=":dlgIncluir" resetValues="true"
+									oncomplete="PF('dlgIncluir').show();"  >
+									<f:setPropertyActionListener value="#{dietaJsf}" target="#{cardapioProdutoBean.cardapioProduto}"  />
+								</p:commandButton>
+						</div>	
+					</p:column> 
+					
+					
+					<p:column headerText="Produto"  >
+						<p:outputLabel value="#{dietaJsf.produto.descricao}" />
+					</p:column>
+					
+					<p:column headerText="Quantidade"    >
+						<p:outputLabel value="#{dietaJsf.quantidade}" />
+					</p:column>
+					
+					
+ 				 
+ 			</p:dataTable>
+	
+		</h:form>
+
+
+		<h:form id="configuracao"   >
+		
+		<p:toolbar>
+					<f:facet name="left"  >
+						<p:commandButton value="Alimentos"  icon="ui-icon-plusthick" 	action="#{cardapioProdutoBean.novo}" oncomplete="PF('dlgIncluir').show();" 
+						update=":dlgIncluir" >
+						</p:commandButton>
+					</f:facet>
+					<f:facet name="right">
+					
+					 	 
+						 <p:commandButton  id="dynaButton" value="Outras Ações" type="button" icon="fa fa-bars" />
+						 
+						 
+					     <p:menu overlay="true" trigger="dynaButton" my="left top" at="left bottom"  >
+
+								<p:submenu label="Exportar">	
+						           <p:menuitem>
+							           <h:commandLink styleClass="ui-menuitem-link" >
+										   <p:graphicImage name="/imagens/pdf.png" width="8%" style="float:left"/>
+										   <h:outputText value="Formato PDF" styleClass="ui-menuitem-text" />
+										   <p:dataExporter type="pdf" target=":cadDieta:idTableDieta" fileName="relatorioPdf" orientation="Landscape" encoding="ISO-8859-1" />
+						   			   </h:commandLink>
+						           </p:menuitem>
+						           
+						           <p:menuitem>
+							           <h:commandLink styleClass="ui-menuitem-link" >
+										   <p:graphicImage name="/imagens/excel.png" width="8%" style="float:left"/>
+										   <h:outputText value="Formato Excel" styleClass="ui-menuitem-text" />
+										   <p:dataExporter type="xls" target=":cadDieta:idTableDieta" fileName="relatorioExcel" />
+						   			   </h:commandLink>
+						           </p:menuitem>
+						           </p:submenu>
+						           
+						           
+					     </p:menu>  
+
+						
+					</f:facet>
+				</p:toolbar>
+		
+		
+		</h:form>
+
+
+
+
+
+
+		
+		<h:form id="confirmacao" >
+		    <p:confirmDialog    severity="alert" widgetVar="confirmation"  global="true" closeOnEscape="true" closable="false" >
+    	    	<center>
+    	    		<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" actionListener="#{cardapioProdutoBean.excluir}" process="@form" update=":cadDieta:idTableDieta, :cadDieta:messageGe"   > 
+    					<f:setPropertyActionListener  value="#{dietaJsf}" target="#{cardapioProdutoBean.cardapioProduto}"  />
+    				</p:commandButton>
+		        	<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no"    icon="ui-icon-close"/>
+		        </center>
+    		</p:confirmDialog>
+		</h:form>
+				
+		</p:dialog>
+		
+		
+			<p:dialog id="dlgIncluir" widgetVar="dlgIncluir" resizable="false" modal="true" draggable="false" header="Cadastro" location="center" closable="false"
+			          closeOnEscape="false" height="44%" width="44%"  showHeader="false" >
+			
+			<p:messages id="cadastro" showIcon="false" closable="true" globalOnly="false" ></p:messages> 
+
+		           <h:form  id="dlg"  onkeypress="if (event.keyCode == 13) { return false;}" >
+				
+					<p:fieldset >
+						<h:panelGrid  styleClass="semBorda" columns="2" id="panelDlg" >
+
+							<p:outputLabel for="produto" value="Produto" id="lbProduto" />
+							<h:panelGrid  columns="3" >
+							<p:inputText id="produto"   maxlength="6" size="3" value="#{cardapioProdutoBean.produtoPesquisa.codigoProduto}" required="true"  requiredMessage="Campo Produto é Obrigatório" onkeypress="return somenteNumero(event)"    >
+								<p:ajax event="change" update="produto, nomeProduto" listener="#{cardapioProdutoBean.buscaProduto()}"    />
+ 							</p:inputText>
+ 							
+							<p:inputText id="nomeProduto" value="#{cardapioProdutoBean.produtoPesquisa.descricao}"    readonly="true"  style="width:230px" />
+							
+							<p:commandButton value="..."    id="botaoConsulta"  actionListener="#{cardapioProdutoBean.escolhaDeProduto()}" immediate="true"   >
+								<p:ajax event="dialogReturn" listener="#{cardapioProdutoBean.retornoProdutoSelecionado}"   update="produto, nomeProduto"  />
+							</p:commandButton>
+							<p:message for="produto" display="icon" severity="info" />	
+							</h:panelGrid>	
+								
+							
+							<p:outputLabel for="q" value="Quantidade" id="lbq" />
+							<h:panelGrid  columns="1" >
+								<p:inputText id="q"   maxlength="6" size="3" value="#{cardapioProdutoBean.cardapioProduto.quantidade}" required="true"  requiredMessage="Campo Quantidade é Obrigatório" onkeypress="return somenteNumero(event)"   />
+ 							</h:panelGrid>
+							
+							
+						</h:panelGrid>
+					</p:fieldset>
+				<br />
+				<div align="center" id="conCan" >
+					<p:commandButton value="Confirmar" id="btnGrava" action="#{cardapioProdutoBean.salvar}" update=":cadDieta ,cadastro , :cadDieta:idTableDieta  "   icon="ui-icon-check" oncomplete="if (args &amp;&amp; !args.validationFailed) PF('dlgIncluir').hide();"    > 	
+					</p:commandButton> 
+	
+					<p:commandButton value="Cancelar" id="btnCancela" onclick="PF('dlgIncluir').hide();" icon="ui-icon-closethick"  immediate="true" ajax="true" update=":dlgIncluir" resetValues="true" process="@all"  >
+					</p:commandButton>
+					
+				</div>
+			</h:form>
+		           
+		           
+		        
+				
+    		
+		</p:dialog>
+		
+		
+		
+		<p:dialog widgetVar="statusDialog" modal="true"     draggable="false" 
+				  closable="false"         resizable="false" showHeader="false" >
+					<p:graphicImage  library="imagens" name="progresso.gif" />
+		</p:dialog>
+		
+	</ui:define>
+</ui:composition>
+</html>

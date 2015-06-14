@@ -14,7 +14,7 @@ public class MatriculaDAO extends DAO<Matricula> {
 	@Override
 	public void salvar(Matricula model) throws DAOException {
 		try {
-			sessao.save(model);
+			sessao.saveOrUpdate(model);
 			sessao.flush();
 		} catch (Exception e) {
 			e.printStackTrace();
