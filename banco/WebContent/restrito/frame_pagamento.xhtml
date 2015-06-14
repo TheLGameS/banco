@@ -35,7 +35,7 @@
 						<p:message for="aluno" display="icon" severity="info" />	
 					</h:panelGrid>
 
-				<p:dataTable value="#{pagamentoBean.listaReceberAluno}" rendered="#{ !empty  pagamentoBean.listaReceberAluno}"
+				<p:dataTable value="#{pagamentoBean.listaReceberAluno}" 
 					resizableColumns="true" draggableColumns="false" id="idTablePagamento"
 					var="pagamentoJsf" rows="10" paginator="true" sortMode="multiple"
 					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -47,9 +47,8 @@
 				 	<p:column headerText="Ações"   width="85"  id="acoes"  resizable="true" exportable="false"   >
 						<div align="center"  >
 								<p:commandButton action="#{pagamentoBean.obterRecebimentoPorId()}"  update=":dlgIncluir" resetValues="true"
-									icon="ui-icon-pencil"   title="Alterar" oncomplete="PF('dlgIncluir').show();">
+									icon="fa fa-usd"   title="Quitar" oncomplete="PF('dlgIncluir').show();">
 									<f:setPropertyActionListener value="#{pagamentoJsf}" target="#{pagamentoBean.contasReceber}"  />
-									<f:ajax  update=":dlgIncluir:dlg:sit"  />
 								</p:commandButton>
 						</div>	
 					</p:column> 
@@ -75,7 +74,7 @@
 		</h:form>
 
 
-		<h:form id="configuracao"  rendered="#{ !empty  pagamentoBean.listaReceberAluno}" >
+		<h:form id="configuracao"   >
 			<p:toolbar>
 				<f:facet name="right">
 					 <p:commandButton  id="dynaButton" value="Outras Ações" type="button" icon="fa fa-bars" />
@@ -114,33 +113,37 @@
 					<p:fieldset >
 						<h:panelGrid  styleClass="semBorda" columns="2" id="panelDlg" >
 
-						<p:outputLabel value="Código" for="codigo" />
-						<h:panelGrid  columns="1" >
-							<p:inputText id="codigo" value="#{pagamentoBean.contasReceber.codigoContasReceber}"   disabled="true"	maxlength="7" style="padding-right: 5px; float: right; width:45px " />
-						</h:panelGrid>
-
-							<p:outputLabel value="Data Vencimento" for="data"  />
-							<h:panelGrid columns="1"  >
-								<p:calendar id="data" value="#{pagamentoBean.contasReceber.dataVencimento}" size="13" pattern="dd-MM-yyyy" mask="true"  locale="pt"  required="true"  requiredMessage="Campo Data Vencimento é Obrigatório" />
-							</h:panelGrid>
-							
-							<p:outputLabel value="Valor" for="valor"  />
-							<h:panelGrid  columns="1" >
-								<p:inputText   id="valor" value="#{pagamentoBean.contasReceber.valor}"  maxlength="8" style="width:100px;"  required="true"  requiredMessage="Campo Valor é Obrigatório" onkeypress="return somenteNumero(event)" >
+							<p:outputLabel value="Valor Bruto" for="valorB"  />
+							<h:panelGrid  columns="3" >
+								<p:inputText   id="valorB" value="#{pagamentoBean.pagamento.valorBruto}"  maxlength="8" style="width:100px;"   onkeypress="return somenteNumero(event)" >
 									<f:convertNumber pattern="#,##0.00" type="currency" minFractionDigits="2" />
-									<p:ajax event="blur" update="valor" ></p:ajax>
+									<p:ajax event="blur" update="valorB" ></p:ajax>
 								</p:inputText>
+								
+								<p:inputText   id="valorJ" placeholder="JUROS"  value="#{pagamentoBean.pagamento.juros}"  maxlength="8" style="width:100px;"   onkeypress="return somenteNumero(event)" >
+									<f:convertNumber pattern="#,##0.00" type="currency" minFractionDigits="2" />
+									<p:ajax event="change" update="valorJ, valorL"  listener="#{pagamentoBean.liquido()}" ></p:ajax>
+								</p:inputText>
+								
+								<p:inputText   id="valorL"  value="#{pagamentoBean.pagamento.valorLiquido}"  maxlength="8" style="width:100px;"   onkeypress="return somenteNumero(event)" >
+									<f:convertNumber pattern="#,##0.00" type="currency" minFractionDigits="2" />
+									<p:ajax event="blur" update="valorL" ></p:ajax>
+								</p:inputText>
+								
 							</h:panelGrid>
-							
-							<h:panelGrid columns="1"  id="fim">
-									<h:inputHidden value="#{pagamentoBean.contasReceber.codigoContasReceber}" />
-							</h:panelGrid>		
+
+
+							<p:outputLabel value="Data Pagamento" for="data"  />
+							<h:panelGrid columns="1"  >
+								<p:calendar id="data" value="#{pagamentoBean.pagamento.dataPagamento}" size="13" pattern="dd-MM-yyyy" mask="true"  locale="pt"  required="true"  requiredMessage="Campo Data Pagamento é Obrigatório" />
+							</h:panelGrid>
+								
 								
 						</h:panelGrid>
 					</p:fieldset>
 				<br />
 				<div align="center" id="conCan" >
-					<p:commandButton value="Confirmar" id="btnGrava" action="#{pagamentoBean.salvar}" update=":lanPagamento,  cadastro   "   icon="ui-icon-check" oncomplete="if (args &amp;&amp; !args.validationFailed) PF('dlgIncluir').hide();"    > 	
+					<p:commandButton value="Confirmar" id="btnGrava" action="#{pagamentoBean.salvar}" update=":lanPagamento,  cadastro , :lanPagamento:idTablePagamento  "   icon="ui-icon-check" oncomplete="if (args &amp;&amp; !args.validationFailed) PF('dlgIncluir').hide();"    > 	
 					</p:commandButton> 
 	
 					<p:commandButton value="Cancelar" id="btnCancela" onclick="PF('dlgIncluir').hide();" icon="ui-icon-closethick"  immediate="true" ajax="true" update=":dlgIncluir" resetValues="true" process="@all"  >
