@@ -44,35 +44,10 @@ public class UsuarioBean extends ActionBean {
 
 	public void ativar(){
 		usuario.setStatus(usuario.getStatus());
-		//		try {
-		//
-		////			if(usuario.isAtivo()){
-		////				usuario.setAtivo(false);
-		////			} else {
-		////				usuario.setAtivo(true);
-		////			}
-		//
-		//			usuario.setAtivo(!usuario.isAtivo());
-		//
-		//			UsuarioRN urn = new UsuarioRN();
-		//			urn.salvar(usuario);
-		//		} catch (RNException e) {
-		//			apresentarMenssagemDeErro(e);
-		//		}
-	}
+		}
 
 	public String atribuiPermissao(Usuario usuario, String permissao) {
-
-		/*this.usuario = usuario;
-
-		Set<String> permissoes = this.usuario.getUsuPer();
-
-		if (permissoes.contains(permissao)) {
-			permissoes.remove(permissao);
-		} else {
-			permissoes.add(permissao);
-		}*/
-		return null;
+			return null;
 	}
 
 
