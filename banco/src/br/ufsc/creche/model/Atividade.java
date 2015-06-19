@@ -5,8 +5,11 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -23,6 +26,7 @@ public class Atividade implements Serializable {
 	private String descricao;
 	private   Date data;
 	private String horario;
+	private DatasComemorativa dataComemorativa;
 
 	@Id
 	@GeneratedValue(generator="seq_atividade")
@@ -61,6 +65,16 @@ public class Atividade implements Serializable {
 
 	public void setHorario(String horario) {
 		this.horario = horario;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY )
+	@JoinColumn(name = "cd_data_comemorativa", nullable = true)
+	public DatasComemorativa getDataComemorativa() {
+		return dataComemorativa;
+	}
+
+	public void setDataComemorativa(DatasComemorativa dataComemorativa) {
+		this.dataComemorativa = dataComemorativa;
 	}
 
 

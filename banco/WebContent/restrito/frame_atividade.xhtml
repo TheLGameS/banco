@@ -173,6 +173,21 @@
 								<p:inputMask  mask="99:99" id="hora" value="#{atividadeBean.atividade.horario}" style="width:50px; " maxlength="5"  required="true" requiredMessage="Campo Horario Obrigatório"  />
 							</h:panelGrid>
 							
+							
+							<p:outputLabel for="feriado" value="Data Comemorativa" id="lbFeriado" />
+							<h:panelGrid  columns="3" >
+							<p:inputText id="feriado"   maxlength="6" size="3" value="#{atividadeBean.dataPesquisa.codigoDataComemorativa}"  onkeypress="return somenteNumero(event)"    >
+								<p:ajax event="change" update="feriado, nomeFeriado" listener="#{atividadeBean.buscaDataComemorativa()}"    />
+ 							</p:inputText>
+ 							
+							<p:inputText id="nomeFeriado" value="#{atividadeBean.dataPesquisa.descricao}"    readonly="true"  style="width:230px" />
+							
+							<p:commandButton value="..."    id="botaoConsulta"  actionListener="#{atividadeBean.escolhaDataComemorativa()}" immediate="true"   >
+								<p:ajax event="dialogReturn" listener="#{atividadeBean.retornoDataComemorativaSelecionado}"   update="feriado, nomeFeriado"  />
+							</p:commandButton>
+							<p:message for="feriado" display="icon" severity="info" />	
+							</h:panelGrid>	
+							
 								
 							<h:panelGrid columns="1"  id="fim">
 									<h:inputHidden value="#{atividadeBean.atividade.codigoAtividade}" />
