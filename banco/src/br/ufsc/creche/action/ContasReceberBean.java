@@ -42,6 +42,8 @@ public class ContasReceberBean extends ActionBean {
 
 	@PostConstruct
 	public void consulta(){
+		listaPeriodo = null;
+		listaPeriodoPagamento = null;
 		criaGraficoAnimado();
 	}
 
@@ -58,12 +60,12 @@ public class ContasReceberBean extends ActionBean {
 
 	private BarChartModel initBarModel() {
 		BarChartModel model = new BarChartModel();
-		
+
 		getListaPeriodo();
 		getListaPeriodoPagamento();
-		
+
 		ChartSeries receber = new ChartSeries();
-		receber.setLabel("Á Receber");
+		receber.setLabel("Receber");
 
 		for(GraficoVO aux : listaPeriodo){
 			receber.set(aux.getData(), aux.getValor());
@@ -75,7 +77,7 @@ public class ContasReceberBean extends ActionBean {
 		for(GraficoVO aux : listaPeriodoPagamento){
 			recebido.set(aux.getData(), aux.getValor());
 		}
-		
+
 		model.addSeries(receber);
 		model.addSeries(recebido);
 
@@ -196,7 +198,7 @@ public class ContasReceberBean extends ActionBean {
 		if(listaPeriodo == null){
 			listaPeriodo = new ContasReceberRN().montarGrafico(dtInicial, dtFinal);
 		}
-		
+
 		return listaPeriodo;
 	}
 
@@ -209,7 +211,7 @@ public class ContasReceberBean extends ActionBean {
 		if(listaPeriodoPagamento == null){
 			listaPeriodoPagamento = new ContasReceberRN().montarGraficoPagamento(dtInicial, dtFinal);
 		}
-		
+
 		return listaPeriodoPagamento;
 	}
 
@@ -217,7 +219,7 @@ public class ContasReceberBean extends ActionBean {
 		this.listaPeriodoPagamento = listaPeriodo;
 	}
 
-	
+
 	public Date getDtInicial() {
 		return dtInicial;
 	}

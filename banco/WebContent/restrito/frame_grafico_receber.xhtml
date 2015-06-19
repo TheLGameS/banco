@@ -9,23 +9,23 @@
 
 <ui:composition template="/templates/main.xhtml">
     <ui:define name="content">    
-	<p:dialog appendToBody="true" closable="true" draggable="false"
-        header="Relatório Gráfico Receber" maximizable="false" minimizable="false"
-        position="center" resizable="false"  visible="true"   >
+	<p:dialog appendToBody="true"   width="50%"  height="350" closeOnEscape="true"  style="margin-top:0.5%" closable="true" draggable="false"
+        header="Gráfico Financeiro" maximizable="false" minimizable="false"
+        position="center" resizable="false"  visible="true"  showHeader="false" >
 		<h:form>
 			<h:panelGrid columns="5" cellpadding="5">
 				<p:outputLabel for="dtInicial" value="Data Inicial:" />
-				<p:calendar id="dtInicial" locale="pt" value="#{contasReceberBean.dtInicial}" size="7" pattern="dd-MM-yyyy" mask="true" required="true" />
+				<p:calendar id="dtInicial" locale="pt" value="#{contasReceberBean.dtInicial}" size="9" pattern="dd-MM-yyyy" mask="true" required="true" />
 
 				<p:outputLabel for="dtFinal" value="Data Final:" />
-				<p:calendar id="dtFinal" value="#{contasReceberBean.dtFinal}" size="7" pattern="dd-MM-yyyy" mask="true" required="true" locale="pt"/>
+				<p:calendar id="dtFinal" value="#{contasReceberBean.dtFinal}" size="9" pattern="dd-MM-yyyy" mask="true" required="true" locale="pt"/>
 
-				<p:commandButton value="Consultar" validateClient="true" id="btn"  action="#{contasReceberBean.consulta()}">
+				<p:commandButton value="Consultar" validateClient="true" id="btn" update="graficoAnimado" action="#{contasReceberBean.consulta()}">
 					<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
 				</p:commandButton>
 			</h:panelGrid>
 			<h:panelGrid columns="1">
-				<p:chart type="bar" model="#{contasReceberBean.graficoAnimado}" style="width:40%;" />
+				<p:chart type="bar" model="#{contasReceberBean.graficoAnimado}" style="width:600px;"  id="graficoAnimado" responsive="true" />
 			</h:panelGrid>
 			
 			
