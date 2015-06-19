@@ -1,7 +1,9 @@
 package br.ufsc.creche.negocio;
 
+import java.util.Date;
 import java.util.List;
 
+import br.ufsc.creche.VO.GraficoVO;
 import br.ufsc.creche.dao.ContasReceberDAO;
 import br.ufsc.creche.model.Aluno;
 import br.ufsc.creche.model.ContasReceber;
@@ -47,6 +49,16 @@ public class ContasReceberRN  extends RN<ContasReceber>{
 		return ((ContasReceberDAO) dao).listaContasReceberPorAluno(filtros);
 	}
 
-
+	public List<ContasReceber> pesquisarPeriodo(Date ini, Date fim) {
+		return ((ContasReceberDAO) dao).pesquisaPeriodo(ini,fim);
+	}
+	
+	public List<GraficoVO> montarGrafico(Date ini, Date fim) {
+		return ((ContasReceberDAO) dao).montarGrafico(ini,fim);
+	}
+	
+	public List<GraficoVO> montarGraficoPagamento(Date ini, Date fim) {
+		return ((ContasReceberDAO) dao).montarGraficoPagamento(ini, fim);
+	}
 
 }

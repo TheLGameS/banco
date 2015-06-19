@@ -2,6 +2,7 @@ package br.ufsc.creche.util;
 
 import java.math.BigDecimal;
 import java.text.Normalizer;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -414,6 +415,17 @@ public class Diversos {
 		result = ins.validar(ie);
 
 		return result;
+	}
+	
+	/**
+	 * 
+	 * @param Date por parametro
+	 * @return String com formato para consulta SQL
+	 */
+	public static String dataSql(Date d){
+		SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
+		String aux = dt.format(d);
+		return aux;
 	}
 
 }
