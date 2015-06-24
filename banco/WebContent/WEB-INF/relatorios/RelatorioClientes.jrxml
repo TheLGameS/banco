@@ -21,7 +21,7 @@
 				<staticText>
 					<reportElement x="0" y="0" width="196" height="60" forecolor="#030202" backcolor="#030202" uuid="191a4491-2a1b-4aea-8aa4-c46b5dab85e2"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="34" isBold="true"/>
+						<font size="30" isBold="true"/>
 					</textElement>
 					<text><![CDATA[CrechEscola]]></text>
 				</staticText>
@@ -68,7 +68,7 @@
 					<textElement>
 						<font size="14" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Email]]></text>
+					<text><![CDATA[Matricula]]></text>
 				</staticText>
 			</frame>
 		</band>

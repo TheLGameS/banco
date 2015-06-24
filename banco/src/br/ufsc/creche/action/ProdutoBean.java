@@ -22,7 +22,6 @@ public class ProdutoBean extends ActionBean {
 		produto = new Produto();
 	}
 
-
 	public void excluir(){
 		try {
 			ProdutoRN urn = new ProdutoRN();

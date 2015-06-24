@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">    
+
+<ui:composition template="/templates/main.xhtml">
+    <ui:define name="content">    
+	<p:dialog appendToBody="true"   width="35%"  height="350" closeOnEscape="true"  style="margin-top:0.5%" closable="true" draggable="false"
+        header="Gráfico Produtos" maximizable="false" minimizable="false"
+        position="center" resizable="false"  visible="true"  showHeader="false" >
+		<h:form>
+		
+			<p:outputLabel for="cardapio" value="Dieta" id="lbCardapio" />
+			<h:panelGrid  columns="4" >
+					<p:inputText id="cardapio"   maxlength="6" size="3" value="#{produtoGraficoBean.cardapio.codigoCardapio}"  onkeypress="return somenteNumero(event)"    >
+						<p:ajax event="change" update="cardapio, nomeCardapio" listener="#{produtoGraficoBean.buscaCardapio()}"    />
+					</p:inputText>
+						
+					<p:inputText id="nomeCardapio" value="#{produtoGraficoBean.cardapio.descricao}"    readonly="true"  style="width:230px" />
+					
+					<p:commandButton value="..."    id="botaoConsultaCardapio"  actionListener="#{produtoGraficoBean.escolhaDeCardapio()}" immediate="true"   >
+						<p:ajax event="dialogReturn" listener="#{produtoGraficoBean.retornoCardapioSelecionado}"   update="cardapio, nomeCardapio"  />
+					</p:commandButton>
+					
+					<p:commandButton value="Consultar" validateClient="true" id="btn" update="graficoDonut" action="#{produtoGraficoBean.init()}">
+						<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+					</p:commandButton>
+					
+					<p:message for="cardapio" display="icon" severity="info" />	
+			</h:panelGrid>
+		
+			<h:panelGrid columns="1">
+				<p:chart type="donut"  model="#{produtoGraficoBean.donutModel}" style="width:400px;height:300px"  id="graficoDonut" responsive="true" />
+			</h:panelGrid>
+			
+			
+		</h:form>
+	</p:dialog>
+	
+	<p:dialog widgetVar="statusDialog" modal="true"     draggable="false" 
+			  closable="false"         resizable="false" showHeader="false" >
+				<p:graphicImage name="/imagens/progresso.gif" />
+	</p:dialog>
+
+	</ui:define>
+</ui:composition>
+</html>

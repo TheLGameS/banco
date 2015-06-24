@@ -13,6 +13,8 @@
         header="Gráfico Financeiro" maximizable="false" minimizable="false"
         position="center" resizable="false"  visible="true"  showHeader="false" >
 		<h:form>
+		<p:focus for="btn" ></p:focus>
+		
 			<h:panelGrid columns="5" cellpadding="5">
 				<p:outputLabel for="dtInicial" value="Data Inicial:" />
 				<p:calendar id="dtInicial" locale="pt" value="#{contasReceberBean.dtInicial}" size="9" pattern="dd-MM-yyyy" mask="true" required="true" />

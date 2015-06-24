@@ -10,7 +10,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
 import net.sf.jasperreports.engine.JRException;
+import br.ufsc.creche.model.Aluno;
 import br.ufsc.creche.model.TesteRelatorio;
+import br.ufsc.creche.negocio.AlunoRN;
 import br.ufsc.creche.util.GeraRelatorioUtil;
 
 @ManagedBean
@@ -25,7 +27,19 @@ public class RelatorioTesteBean  extends ActionBean implements Serializable  {
 	@PostConstruct
 	public void PreparandoTela() {
 
-		TesteRelatorio c1 = new TesteRelatorio("Caju Jones","caju@gmail.com","1111-1111");
+		AlunoRN alunoService = new AlunoRN();
+		List<Aluno> listaAluno = alunoService.pesquisar(null);
+
+		System.out.println(listaAluno.size());
+
+
+		for(Aluno adapter: listaAluno){
+
+			TesteRelatorio relAdapter = new TesteRelatorio(adapter.getNome(), adapter.getMatricula(), adapter.getTelefoneMae());
+			getList().add(relAdapter);
+		}
+
+		/*TesteRelatorio c1 = new TesteRelatorio("Caju Jones","caju@gmail.com","1111-1111");
 		TesteRelatorio c2 = new TesteRelatorio("Joao Cana Brava","joao@gmail.com","2222-2222");
 		TesteRelatorio c3 = new TesteRelatorio("Francisco Garoto Super","franscisco@gmail.com","3333-3333");
 		TesteRelatorio c4 = new TesteRelatorio("Fabricio Grande Polegar","fabricio@gmail.com","4444-4444");
@@ -44,7 +58,7 @@ public class RelatorioTesteBean  extends ActionBean implements Serializable  {
 		getList().add(c7);
 		getList().add(c8);
 		getList().add(c9);
-
+		 */
 
 	}
 
@@ -53,7 +67,7 @@ public class RelatorioTesteBean  extends ActionBean implements Serializable  {
 		String template = "RelatorioClientes.jrxml";
 
 		HashMap<String, Object> parametros = new HashMap<String, Object>();
-		parametros.put("title", "Relatório de Clientes" );
+		parametros.put("title", "Relatório de Alunos" );
 
 		GeraRelatorioUtil a = new GeraRelatorioUtil();
 		try {

@@ -2,6 +2,7 @@ package br.ufsc.creche.negocio;
 
 import java.util.List;
 
+import br.ufsc.creche.VO.GraficoDietaVO;
 import br.ufsc.creche.dao.CardapioProdutoDAO;
 import br.ufsc.creche.model.Cardapio;
 import br.ufsc.creche.model.CardapioProduto;
@@ -47,5 +48,8 @@ public class CardapioProdutoRN  extends RN<CardapioProduto>{
 		return ((CardapioProdutoDAO) dao).pesquisarProduto(filtros);
 	}
 
+	public List<GraficoDietaVO> montarGrafico(Cardapio c) {
+		return ((CardapioProdutoDAO) dao).montarGrafico(c);
+	}
 
 }
